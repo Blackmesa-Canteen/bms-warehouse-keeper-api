@@ -1,6 +1,6 @@
 package io.bms.bmswk.mapper;
 
-import io.bms.bmswk.entity.Spu;
+import io.bms.bmswk.model.entity.Spu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

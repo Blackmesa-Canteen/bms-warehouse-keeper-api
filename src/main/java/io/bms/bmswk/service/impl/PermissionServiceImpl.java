@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.Permission;
+import io.bms.bmswk.model.entity.Permission;
 import io.bms.bmswk.mapper.PermissionMapper;
 import io.bms.bmswk.service.IPermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

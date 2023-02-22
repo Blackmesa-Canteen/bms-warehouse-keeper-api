@@ -1,4 +1,4 @@
-package io.bms.bmswk.model.dto;
+package io.bms.bmswk.model.support;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;

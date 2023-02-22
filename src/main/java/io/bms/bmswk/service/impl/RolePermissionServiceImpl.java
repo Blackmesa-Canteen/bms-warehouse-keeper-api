@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.RolePermission;
+import io.bms.bmswk.model.entity.RolePermission;
 import io.bms.bmswk.mapper.RolePermissionMapper;
 import io.bms.bmswk.service.IRolePermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

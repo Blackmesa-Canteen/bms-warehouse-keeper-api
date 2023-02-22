@@ -1,4 +1,4 @@
-package io.bms.bmswk.entity;
+package io.bms.bmswk.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 996worker

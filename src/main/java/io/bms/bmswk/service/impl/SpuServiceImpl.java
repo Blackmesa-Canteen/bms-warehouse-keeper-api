@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.Spu;
+import io.bms.bmswk.model.entity.Spu;
 import io.bms.bmswk.mapper.SpuMapper;
 import io.bms.bmswk.service.ISpuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

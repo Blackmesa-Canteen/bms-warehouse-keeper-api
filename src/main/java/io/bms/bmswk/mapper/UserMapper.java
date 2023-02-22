@@ -1,6 +1,6 @@
 package io.bms.bmswk.mapper;
 
-import io.bms.bmswk.entity.User;
+import io.bms.bmswk.model.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

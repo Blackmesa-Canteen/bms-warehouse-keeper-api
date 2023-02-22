@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.WarehouseSku;
+import io.bms.bmswk.model.entity.WarehouseSku;
 import io.bms.bmswk.mapper.WarehouseSkuMapper;
 import io.bms.bmswk.service.IWarehouseSkuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

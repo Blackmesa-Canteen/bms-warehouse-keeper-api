@@ -1,6 +1,6 @@
 package io.bms.bmswk.mapper;
 
-import io.bms.bmswk.entity.Permission;
+import io.bms.bmswk.model.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,6 +1,6 @@
 package io.bms.bmswk.mapper;
 
-import io.bms.bmswk.entity.CategoryParam;
+import io.bms.bmswk.model.entity.CategoryParam;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

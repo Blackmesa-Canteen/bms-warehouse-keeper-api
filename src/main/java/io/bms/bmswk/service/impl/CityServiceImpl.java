@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.City;
+import io.bms.bmswk.model.entity.City;
 import io.bms.bmswk.mapper.CityMapper;
 import io.bms.bmswk.service.ICityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

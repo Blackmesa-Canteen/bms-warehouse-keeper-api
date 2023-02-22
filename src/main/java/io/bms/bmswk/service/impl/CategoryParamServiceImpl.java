@@ -1,6 +1,6 @@
 package io.bms.bmswk.service.impl;
 
-import io.bms.bmswk.entity.CategoryParam;
+import io.bms.bmswk.model.entity.CategoryParam;
 import io.bms.bmswk.mapper.CategoryParamMapper;
 import io.bms.bmswk.service.ICategoryParamService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

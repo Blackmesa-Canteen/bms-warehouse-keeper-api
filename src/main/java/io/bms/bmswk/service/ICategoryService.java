@@ -1,6 +1,6 @@
 package io.bms.bmswk.service;
 
-import io.bms.bmswk.entity.Category;
+import io.bms.bmswk.model.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
