@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_consume")
-@ApiModel(value = "Consume对象", description = "")
+@ApiModel(value = "Consume object", description = "")
 public class Consume implements Serializable {
 
     private static final long serialVersionUID = 1L;

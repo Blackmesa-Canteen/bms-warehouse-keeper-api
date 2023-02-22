@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_city")
-@ApiModel(value = "City对象", description = "")
+@ApiModel(value = "City object", description = "")
 public class City implements Serializable {
 
     private static final long serialVersionUID = 1L;

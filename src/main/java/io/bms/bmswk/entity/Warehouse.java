@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_warehouse")
-@ApiModel(value = "Warehouse对象", description = "")
+@ApiModel(value = "Warehouse object", description = "")
 public class Warehouse implements Serializable {
 
     private static final long serialVersionUID = 1L;

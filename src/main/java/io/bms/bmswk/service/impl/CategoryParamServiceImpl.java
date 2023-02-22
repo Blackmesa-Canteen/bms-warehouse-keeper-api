@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * parameter table for item categories 服务实现类
+ * parameter table for item categories service
  * </p>
  *
  * @author 996worker

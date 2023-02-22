@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import java.util.Collections;
 
 /**
- * @author 996Worker
- * @description code generator
- * @create 2023-02-23 09:48
+ * @author 996worker
  */
 public class MybatisPlusCodeGenerator {
 

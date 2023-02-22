@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_role_permission")
-@ApiModel(value = "RolePermission对象", description = "")
+@ApiModel(value = "RolePermission object", description = "")
 public class RolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;

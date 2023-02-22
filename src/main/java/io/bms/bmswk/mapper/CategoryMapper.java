@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * item category table Mapper 接口
+ * item category table Mapper interface
  * </p>
  *
  * @author 996worker

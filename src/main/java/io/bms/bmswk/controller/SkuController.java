@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * item table 前端控制器
+ * item table controller
  * </p>
  *
  * @author 996worker

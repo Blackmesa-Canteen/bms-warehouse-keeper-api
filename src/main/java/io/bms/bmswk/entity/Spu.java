@@ -17,12 +17,12 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_spu")
-@ApiModel(value = "Spu对象", description = "product table")
+@ApiModel(value = "Spu object", description = "product table")
 public class Spu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty("primary_key")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

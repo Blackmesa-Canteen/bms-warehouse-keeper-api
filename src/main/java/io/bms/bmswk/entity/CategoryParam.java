@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_category_param")
-@ApiModel(value = "CategoryParam对象", description = "parameter table for item categories")
+@ApiModel(value = "CategoryParam object", description = "parameter table for item categories")
 public class CategoryParam implements Serializable {
 
     private static final long serialVersionUID = 1L;

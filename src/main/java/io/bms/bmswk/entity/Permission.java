@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_permission")
-@ApiModel(value = "Permission对象", description = "")
+@ApiModel(value = "Permission object", description = "")
 public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
