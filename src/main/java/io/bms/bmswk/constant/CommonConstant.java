@@ -1,4 +1,4 @@
-package io.bms.bmswk.common;
+package io.bms.bmswk.constant;
 
 /**
  * <p>
@@ -8,5 +8,5 @@ package io.bms.bmswk.common;
  * @author 996Worker
  * @since 2023-02-23 10:32
  */
-public class Constant {
+public class CommonConstant {
 }
