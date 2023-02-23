@@ -1,5 +1,7 @@
 package io.bms.bmswk.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,6 +22,9 @@ public class WarehouseSku implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     private Integer warehouseId;
 
     private Integer skuId;
@@ -31,6 +36,14 @@ public class WarehouseSku implements Serializable {
     private LocalDateTime dtCreated;
 
     private LocalDateTime dtUpdated;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getWarehouseId() {
         return warehouseId;
