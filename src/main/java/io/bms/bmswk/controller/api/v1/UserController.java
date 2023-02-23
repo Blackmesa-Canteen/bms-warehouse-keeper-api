@@ -1,13 +1,17 @@
 package io.bms.bmswk.controller.api.v1;
 
+import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.UserRegisterParam;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.model.vo.UserVO;
 import io.bms.bmswk.service.IUserService;
+import io.bms.bmswk.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -18,13 +22,30 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-02-23
  */
 @RestController
+@Validated
 @RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
     IUserService userService;
-    public R create(@RequestBody UserRegisterParam param) {
-        return R.ok();
+
+    @PostMapping("")
+    public R create(@RequestBody @Valid UserRegisterParam param) {
+        return userService.registerUser(
+                param.getLoginId(),
+                param.getName(),
+                param.getPassword(),
+                param.getRoleId(),
+                param.getPhone()
+        );
+    }
+
+    @GetMapping("/{id}")
+    public R getUserById(@PathVariable String id) {
+        // TODO update user VO
+        User user = userService.getById(id);
+        UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
+        return R.ok().setData(userVO);
     }
 
 }

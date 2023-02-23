@@ -1,47 +1,29 @@
-package io.bms.bmswk.model.entity;
+package io.bms.bmswk.model.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import io.bms.bmswk.constant.CommonConstant;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
  *
  * </p>
  *
- * @author 996worker
- * @since 2023-02-23
+ * @author 996Worker
+ * @since 2023-02-23 16:13
  */
-@TableName("t_user")
-@ApiModel(value = "User object", description = "")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
+public class UserVO {
     private Integer id;
 
     private String loginId;
 
     private String name;
 
-    private String password;
-
     private Integer roleId;
 
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime dtCreated;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
-    @ApiModelProperty("status: 1 working, 2 on vacation, 3 resigned, 4 banned")
-    private Byte status = CommonConstant.STAFF_WORKING;
+    private Byte status;
 
     private String phone;
 
@@ -67,14 +49,6 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Integer getRoleId() {
@@ -115,20 +89,5 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "id = " + id +
-            ", loginId = " + loginId +
-            ", name = " + name +
-            ", password = " + password +
-            ", roleId = " + roleId +
-            ", dtCreated = " + dtCreated +
-            ", dtUpdated = " + dtUpdated +
-            ", status = " + status +
-            ", phone = " + phone +
-        "}";
     }
 }

@@ -69,8 +69,6 @@
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-logging</artifactId>-->
 <!--        </dependency>-->
-
-        <!-- validation -->
         <!-- validation -->
         <dependency>
             <groupId>javax.validation</groupId>

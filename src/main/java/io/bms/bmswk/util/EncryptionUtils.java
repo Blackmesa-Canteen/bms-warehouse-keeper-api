@@ -46,7 +46,7 @@ import java.util.Arrays;
  * @see <a href="https://github.com/spring-projects/spring-security/blob/main/crypto/src/main/java/org/springframework/security/crypto/bcrypt/BCrypt.java">Spring Security BCrypt</a>
  * @date 2021-09-28
  */
-public class BCrypt {
+public class EncryptionUtils {
 
     // BCrypt parameters
     private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
@@ -722,7 +722,7 @@ public class BCrypt {
      * @return the hashed password
      */
     public static String hashpw(byte[] passwordb, String salt) {
-        BCrypt B;
+        EncryptionUtils B;
         String real_salt;
         byte[] saltb;
         byte[] hashed;
@@ -772,7 +772,7 @@ public class BCrypt {
             passwordb = Arrays.copyOf(passwordb, passwordb.length + 1);
         }
 
-        B = new BCrypt();
+        B = new EncryptionUtils();
         hashed = B.crypt_raw(passwordb, saltb, rounds, minor == 'x', minor == 'a' ? 0x10000 : 0);
 
         rs.append("$2");
