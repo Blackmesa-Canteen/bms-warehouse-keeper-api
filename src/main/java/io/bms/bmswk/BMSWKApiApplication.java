@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.")
-public class BlackmesaWarehouseKeeperApiApplication {
+@MapperScan(basePackages = {"io.bms.bmswk.mapper"})
+public class BMSWKApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BlackmesaWarehouseKeeperApiApplication.class, args);
+        SpringApplication.run(BMSWKApiApplication.class, args);
     }
 
 }

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.8</version>
+        <version>2.6.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.bms</groupId>
@@ -19,13 +19,17 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- ORM framework -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.3.1</version>
         </dependency>
 
@@ -35,11 +39,10 @@
             <version>3.5.3.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.6.9</version>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>1.7.1.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -55,6 +58,12 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.32</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+
 
         <!-- utils -->
         <dependency>

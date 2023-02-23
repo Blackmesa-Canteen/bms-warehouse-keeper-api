@@ -1,4 +1,4 @@
-package io.bms.bmswk.security.util;
+package io.bms.bmswk.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
