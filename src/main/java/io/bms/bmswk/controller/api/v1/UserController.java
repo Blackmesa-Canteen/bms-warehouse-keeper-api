@@ -1,18 +1,18 @@
-package io.bms.bmswk.controller;
+package io.bms.bmswk.controller.api.v1;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * item category table controller
+ *  controller
  * </p>
  *
  * @author 996worker
  * @since 2023-02-23
  */
 @Controller
-@RequestMapping("/bmswk/category")
-public class CategoryController {
+@RequestMapping("/api/v1/user")
+public class UserController {
 
 }

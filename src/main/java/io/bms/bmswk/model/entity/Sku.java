@@ -1,8 +1,7 @@
 package io.bms.bmswk.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -44,9 +43,11 @@ public class Sku implements Serializable {
     @ApiModelProperty("logic delete")
     private Boolean valid;
 
-    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime dtCreated;
 
-    private LocalDateTime lastUpdateTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime dtUpdated;
 
     public Integer getId() {
         return id;
@@ -104,34 +105,34 @@ public class Sku implements Serializable {
         this.valid = valid;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public LocalDateTime getDtCreated() {
+        return dtCreated;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setDtCreated(LocalDateTime dtCreated) {
+        this.dtCreated = dtCreated;
     }
 
-    public LocalDateTime getLastUpdateTime() {
-        return lastUpdateTime;
+    public LocalDateTime getDtUpdated() {
+        return dtUpdated;
     }
 
-    public void setLastUpdateTime(LocalDateTime lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setDtUpdated(LocalDateTime dtUpdated) {
+        this.dtUpdated = dtUpdated;
     }
 
     @Override
     public String toString() {
         return "Sku{" +
-            "id = " + id +
-            ", spuId = " + spuId +
-            ", name = " + name +
-            ", price = " + price +
-            ", param = " + param +
-            ", saleable = " + saleable +
-            ", valid = " + valid +
-            ", createTime = " + createTime +
-            ", lastUpdateTime = " + lastUpdateTime +
-        "}";
+                "id=" + id +
+                ", spuId=" + spuId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", param='" + param + '\'' +
+                ", saleable=" + saleable +
+                ", valid=" + valid +
+                ", dtCreated=" + dtCreated +
+                ", dtUpdated=" + dtUpdated +
+                '}';
     }
 }

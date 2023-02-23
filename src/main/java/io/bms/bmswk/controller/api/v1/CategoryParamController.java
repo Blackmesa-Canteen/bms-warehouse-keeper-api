@@ -1,18 +1,18 @@
-package io.bms.bmswk.controller;
+package io.bms.bmswk.controller.api.v1;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- *  controller
+ * parameter table for item categories controller
  * </p>
  *
  * @author 996worker
  * @since 2023-02-23
  */
 @Controller
-@RequestMapping("/bmswk/city")
-public class CityController {
+@RequestMapping("/api/v1/categoryParam")
+public class CategoryParamController {
 
 }

@@ -1,8 +1,7 @@
 package io.bms.bmswk.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
@@ -35,8 +34,10 @@ public class CategoryParam implements Serializable {
     @ApiModelProperty("unit")
     private String unit;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime dtCreated;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
     public Integer getId() {
