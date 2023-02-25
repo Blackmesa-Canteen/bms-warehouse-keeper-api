@@ -29,6 +29,11 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    /**
+     * register user
+     * @param param register request body
+     * @return response
+     */
     @PostMapping("")
     public R create(@RequestBody @Valid UserRegisterParam param) {
         return userService.registerUser(
@@ -40,9 +45,13 @@ public class UserController {
         );
     }
 
+    /**
+     * get user by primary key
+     */
     @GetMapping("/{id}")
     public R getUserById(@PathVariable String id) {
         // TODO update user VO
+        // user vo ignores sensitive information
         User user = userService.getById(id);
         UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
         return R.ok().setData(userVO);

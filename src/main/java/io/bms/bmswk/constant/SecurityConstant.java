@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @author 996Worker
  * @since 2023-02-23 11:50
  */
-
 public class SecurityConstant {
 
 
@@ -21,6 +20,20 @@ public class SecurityConstant {
     public final static String JWT_KEY = System.getenv("JWT_KEY");
     public final static String JWT_ISSUER = System.getenv("JWT_ISSUER");
     public final static long JWT_VALIDITY_MS = 24 * 60 * 60 * 1000;
+
+    /** role names for RBAC */
+    public final static String ADMIN_ROLE_NAME = "admin";
+    public final static String CONSUMER_ROLE_NAME = "consumer";
+    public final static String PURCHASER_ROLE_NAME = "purchaser";
+    public final static String WAREHOUSE_KEEPER_ROLE_NAME = "warehouse_keeper";
+    public final static String SUPER_ROLE_NAME = "super";
+
+    /** permission names for RBAC */
+    public final static String INVENTORY_PURCHASE_PERMISSION = "inventory_purchase";
+    public final static String INVENTORY_CONSUME_PERMISSION = "inventory_consume";
+    public final static String INVENTORY_MANAGE_PERMISSION = "inventory_manage";
+    public final static String USER_MANAGE_PERMISSION = "user_manage";
+    public final static String INVENTORY_SEE = "inventory_see";
 
 
 }
