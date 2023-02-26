@@ -2,13 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.bms.bmswk.mapper.PermissionMapper">
 
-    <select id="getPermissionsByRoleName" resultType="io.bms.bmswk.model.dto.PermissionDTO">
+    <select id="getPermissionsByRoleName" resultType="io.bms.bmswk.model.dto.PermissionDTO"
+    parameterType="java.lang.String">
         select p.id as permission_id, p.name as permission_name
-        from (select rp.permission_id
-              from t_role as r inner join t_role_permission as rp
-                  on r.id = rp.role_id
-              where r.name = #{roleName})
-            as rrp inner join t_permission as p
-                on rrp.permission_id = p.id;
+        from t_permission as p
+        where p.id in (select rp.permission_id
+                       from t_role as r inner join t_role_permission as rp
+                                                   on r.id = rp.role_id
+                       where r.name = #{roleName});
+    </select>
+    <select id="getPermissionsByRoleId" resultType="io.bms.bmswk.model.dto.PermissionDTO"
+            parameterType="java.lang.Integer">
+        select p.id as permission_id, p.name as permission_name
+        from t_permission as p inner join t_role_permission as rp
+                                          on p.id = rp.permission_id
+        where rp.role_id = #{roleId};
     </select>
 </mapper>

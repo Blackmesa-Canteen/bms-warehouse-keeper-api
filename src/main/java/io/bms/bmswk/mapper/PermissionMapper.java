@@ -20,4 +20,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     List<PermissionDTO> getPermissionsByRoleName(@Param("roleName") String roleName);
 
+    List<PermissionDTO> getPermissionsByRoleId(@Param("roleId") Integer roleId);
+
 }
