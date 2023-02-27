@@ -35,7 +35,7 @@ public enum ExceptionCodeEnum {
     WAREHOUSE_MANAGEMENT_EXCEPTION(13000,"warehouse management error"),
     PRODUCT_NOT_FOUND_EXCEPTION(13404,"warehouse product not found"),
     USER_EXIST_EXCEPTION(14001,"Duplicated user"),
-    AUTH_EXCEPTION(14401,"username or password error"),
+    AUTH_EXCEPTION(14402,"username or password error"),
     NO_PERMISSION_EXCEPTION(14403,"no permission"),
     ;
 

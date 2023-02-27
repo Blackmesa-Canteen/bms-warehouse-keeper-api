@@ -16,10 +16,19 @@ import org.springframework.stereotype.Component;
 public class SecurityConstant {
 
 
-
+    /** jwt token related constant */
     public final static String JWT_KEY = System.getenv("JWT_KEY");
     public final static String JWT_ISSUER = System.getenv("JWT_ISSUER");
-    public final static long JWT_VALIDITY_MS = 24 * 60 * 60 * 1000;
+    public final static long JWT_VALIDITY_MS =
+            System.getenv("JWT_VALIDITY_MS") == null ? 24 * 60 * 60 * 1000
+                    : Long.parseLong(System.getenv("JWT_VALIDITY_MS"));
+
+    /** JWT cliam names */
+    public final static String JWT_CLAIM_USER_PRIMARY_KEY = "userPk";
+    public final static String JWT_CLAIM_LOGIN_ID = "loginId";
+    public final static String JWT_CLAIM_USERNAME = "userName";
+    public final static String JWT_CLAIM_ROLE_ID = "roleId";
+
 
     /** role names for RBAC */
     public final static String ADMIN_ROLE_NAME = "admin";
