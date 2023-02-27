@@ -49,6 +49,8 @@ public class TokenAuthFilter extends BasicHttpAuthenticationFilter {
         // remove bearer prefix
         String tokenStr = TokenStrUtils.removeTokenPrefix(tokenStrOriginal);
 
+        LOGGER.debug(String.format("Received header token: %s", tokenStr));
+
         //gen token obj
         AuthToken authToken = new AuthToken(tokenStr);
 
@@ -59,16 +61,21 @@ public class TokenAuthFilter extends BasicHttpAuthenticationFilter {
     }
 
     /**
-     * handle allow or disallow behavior
+     * Show 401 response
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         if (isLoginAttempt(request, response)) {
+            // if token header exists
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
                 redirect403(request, response);
             }
+        } else {
+            // if missing token, still reject!
+            redirect403(request, response);
+            return false;
         }
         return true;
     }

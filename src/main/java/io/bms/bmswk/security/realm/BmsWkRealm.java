@@ -62,7 +62,7 @@ public class BmsWkRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String tokenStr= (String) authenticationToken.getCredentials();
-
+        LOGGER.debug(String.format("doGetAuthenticationInfo: credentials: %s", tokenStr));
         // validate auth token
         try {
             AuthToken authToken = tokenHelper.validateAndDecodeTokenStr(tokenStr);
@@ -79,11 +79,14 @@ public class BmsWkRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String loginId = principalCollection.toString();
+        LOGGER.debug(String.format("doGetAuthorizationInfo: principal user loginId: %s", loginId));
+
         User userInfo = userService.getUserByLoginId(loginId);
 
         // get role
         Integer roleId = userInfo.getRoleId();
         Role role = roleService.getById(roleId);
+        LOGGER.debug(String.format("doGetAuthorizationInfo: user role name: %s", role.getName()));
 
         // get permission info based on role
         List<PermissionDTO> permissionDTOS = permissionService.getPermissionListByRoleId(roleId);
