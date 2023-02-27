@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * item category table 服务类
+ * item category table service
  * </p>
  *
  * @author 996worker
