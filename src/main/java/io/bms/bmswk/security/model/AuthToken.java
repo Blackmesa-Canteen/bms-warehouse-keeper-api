@@ -1,5 +1,7 @@
 package io.bms.bmswk.security.model;
 
+import org.apache.shiro.authc.AuthenticationToken;
+
 import java.util.Date;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Date;
  * @description token for JWT authentication
  * @since 2022-08-03 23:35
  */
-public class AuthToken {
+public class AuthToken implements AuthenticationToken {
 
     private String token;
 
@@ -24,6 +26,20 @@ public class AuthToken {
     private Date expirationDate;
 
     public AuthToken() {
+    }
+
+    public AuthToken(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public Object getPrincipal() {
+        return loginId;
+    }
+
+    @Override
+    public Object getCredentials() {
+        return token;
     }
 
     public String getToken() {

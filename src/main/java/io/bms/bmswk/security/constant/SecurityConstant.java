@@ -1,4 +1,4 @@
-package io.bms.bmswk.constant;
+package io.bms.bmswk.security.constant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +15,16 @@ import org.springframework.stereotype.Component;
  */
 public class SecurityConstant {
 
+    /**
+     * Token header name
+     */
+    public final static String AUTH_HEADER_NAME = "Authorization";
+    public final static String AUTH_TOKEN_PREFIX = "Bearer ";
+
+    /**
+     * auth filter name
+     */
+    public final static String AUTH_FILTER_NAME = "TokenAuthFilter";
 
     /** jwt token related constant */
     public final static String JWT_KEY = System.getenv("JWT_KEY");
@@ -44,5 +54,8 @@ public class SecurityConstant {
     public final static String USER_MANAGE_PERMISSION = "user_manage";
     public final static String INVENTORY_SEE = "inventory_see";
 
-
+    /**
+     * shiro
+     */
+    public final static String REALM_NAME_BMS_WK = "BmsWkRealm";
 }

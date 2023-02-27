@@ -5,11 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import io.bms.bmswk.constant.SecurityConstant;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.exception.AuthException;
-import io.bms.bmswk.exception.InternalException;
 import io.bms.bmswk.exception.NotImplementedException;
 import io.bms.bmswk.security.model.AuthToken;
 import org.springframework.stereotype.Component;
@@ -30,7 +28,7 @@ import java.util.Date;
 public class JwtTokenHelper implements ITokenHelper {
 
     @Override
-    public AuthToken validateAndDecodeTokenStr(String token) {
+    public AuthToken validateAndDecodeTokenStr(String token) throws AuthException {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SecurityConstant.JWT_KEY);
 
@@ -63,7 +61,7 @@ public class JwtTokenHelper implements ITokenHelper {
     }
 
     @Override
-    public String genTokenStr(Integer userPk, String loginId, String userName, Integer roleId) {
+    public String genTokenStr(Integer userPk, String loginId, String userName, Integer roleId) throws AuthException {
         try {
             // now date
             Date now = new Date();
@@ -88,7 +86,7 @@ public class JwtTokenHelper implements ITokenHelper {
 
     @Override
     @Deprecated
-    public boolean validateTokenStr(String token) {
+    public boolean validateTokenStr(String token) throws AuthException {
         throw new NotImplementedException();
 //        try {
 //            Algorithm algorithm = Algorithm.HMAC256(SecurityConstant.JWT_KEY);

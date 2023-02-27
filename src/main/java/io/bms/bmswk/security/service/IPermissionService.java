@@ -1,4 +1,4 @@
-package io.bms.bmswk.service;
+package io.bms.bmswk.security.service;
 
 import io.bms.bmswk.model.dto.PermissionDTO;
 import io.bms.bmswk.model.entity.Permission;
@@ -17,8 +17,8 @@ import java.util.List;
  */
 public interface IPermissionService extends IService<Permission> {
 
-    R getPermissionListByRoleName(String roleName);
+    List<PermissionDTO> getPermissionListByRoleName(String roleName);
 
-    R getPermissionListByRoleId(Integer roleId);
+    List<PermissionDTO> getPermissionListByRoleId(Integer roleId);
 
 }

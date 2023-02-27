@@ -36,13 +36,15 @@ public class UserController {
      */
     @PostMapping("")
     public R create(@RequestBody @Valid UserRegisterParam param) {
-        return userService.registerUser(
+        userService.registerUser(
                 param.getLoginId(),
                 param.getName(),
                 param.getPassword(),
                 param.getRoleId(),
                 param.getPhone()
         );
+
+        return R.ok();
     }
 
     /**

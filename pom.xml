@@ -82,18 +82,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- shiro cache -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>1.4.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <!-- validation -->
         <dependency>

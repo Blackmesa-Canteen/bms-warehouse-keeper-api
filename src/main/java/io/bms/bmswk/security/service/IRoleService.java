@@ -1,4 +1,4 @@
-package io.bms.bmswk.service;
+package io.bms.bmswk.security.service;
 
 import io.bms.bmswk.model.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;

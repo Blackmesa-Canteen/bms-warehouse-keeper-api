@@ -23,6 +23,13 @@ public interface IUserService extends IService<User> {
      * @param phone user phone
      * @return ok if done, else exception
      */
-    public R registerUser(String loginId, String name, String password,
+    public void registerUser(String loginId, String name, String password,
                           Integer roleId, String phone);
+
+    /**
+     * get user info by user id
+     * @param loginId
+     * @return user info
+     */
+    public User getUserByLoginId(String loginId);
 }

@@ -1,4 +1,4 @@
-package io.bms.bmswk.handler;
+package io.bms.bmswk.advice;
 
 import io.bms.bmswk.exception.BaseException;
 import io.bms.bmswk.exception.ExceptionCodeEnum;
@@ -7,7 +7,9 @@ import io.bms.bmswk.util.ExceptionUtils;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
@@ -24,12 +26,13 @@ import java.util.Set;
  */
 @RestControllerAdvice
 public class GlobalExceptionControllerAdvice {
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionControllerAdvice.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     /**
      * handles JSR303 validation exception
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R handleValidationException(ConstraintViolationException ex){
         StringBuilder msg = new StringBuilder();
         Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
@@ -39,7 +42,7 @@ public class GlobalExceptionControllerAdvice {
             String message = constraintViolation.getMessage();
             msg.append("[").append(message).append("]");
         }
-        logger.error(msg.toString(),ex);
+        LOGGER.error(msg.toString(),ex);
 
         return R.error(ExceptionCodeEnum.VAILD_EXCEPTION.getCode(),
                 ExceptionCodeEnum.VAILD_EXCEPTION.getMessage()).setData(msg.toString());
@@ -52,8 +55,10 @@ public class GlobalExceptionControllerAdvice {
      */
     @ExceptionHandler(value = BaseException.class)
     public R handleException(BaseException ex) {
-        logger.error(ex.getMsg(), ex);
-        return R.error(ex.getCode(), ex.getMsg()).setData(ExceptionUtils.getStackTrace(ex));
+        LOGGER.error(ex.getMsg(), ex);
+        return R.error(
+                ex.getCode(), ex.getMsg()).setData(ExceptionUtils.getStackTrace(ex)
+        );
     }
 
     /**
@@ -62,8 +67,9 @@ public class GlobalExceptionControllerAdvice {
      * @return Response
      */
     @ExceptionHandler(value = Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleUnknown(Exception ex){
-        logger.error(ex.getMessage(),ex);
+        LOGGER.error(ex.getMessage(),ex);
         return R.error(ExceptionCodeEnum.UNKNOW_EXCEPTION.getCode(),
                 ex.getMessage()).setData(ExceptionUtils.getStackTrace(ex));
     }

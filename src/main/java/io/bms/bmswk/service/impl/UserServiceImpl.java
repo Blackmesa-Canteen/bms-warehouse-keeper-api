@@ -1,5 +1,8 @@
 package io.bms.bmswk.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import io.bms.bmswk.exception.DuplicatedUserException;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.mapper.UserMapper;
@@ -7,6 +10,8 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.bms.bmswk.util.EncryptionUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +30,12 @@ import java.util.Map;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public R registerUser(String loginId, String name, String password, Integer roleId, String phone) {
+    public void registerUser(String loginId, String name, String password, Integer roleId, String phone) {
         // CHECK EXISTENCE
         Map<String, Object> map = new HashMap<>();
         map.put("login_id", loginId);
@@ -50,7 +56,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setRoleId(roleId);
         user.setPhone(phone);
         userMapper.insert(user);
+    }
 
-        return R.ok();
+    @Override
+    public User getUserByLoginId(String loginId) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("login_id", loginId);
+        return userMapper.selectOne(wrapper);
     }
 }

@@ -1,8 +1,8 @@
-package io.bms.bmswk.service.impl;
+package io.bms.bmswk.security.service.impl;
 
 import io.bms.bmswk.model.entity.Role;
 import io.bms.bmswk.mapper.RoleMapper;
-import io.bms.bmswk.service.IRoleService;
+import io.bms.bmswk.security.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

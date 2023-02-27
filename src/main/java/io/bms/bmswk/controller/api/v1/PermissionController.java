@@ -1,7 +1,7 @@
 package io.bms.bmswk.controller.api.v1;
 
 import io.bms.bmswk.model.support.R;
-import io.bms.bmswk.service.IPermissionService;
+import io.bms.bmswk.security.service.IPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +25,13 @@ public class PermissionController {
 
     @GetMapping("/role_name/{roleName}")
     public R findPermissionsByRoleName(@PathVariable String roleName) {
-        return permissionService.getPermissionListByRoleName(roleName);
+        return R.ok().setData(permissionService.getPermissionListByRoleName(roleName));
     }
 
     @GetMapping("/role_name/{roleId}")
     public R findPermissionsByRoleId(@PathVariable String roleId) {
         Integer roleIdInt = Integer.parseInt(roleId);
-        return permissionService.getPermissionListByRoleId(roleIdInt);
+        return R.ok().setData(permissionService.getPermissionListByRoleId(roleIdInt));
     }
 
 }

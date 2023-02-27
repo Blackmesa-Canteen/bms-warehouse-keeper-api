@@ -18,4 +18,8 @@ public class InternalException extends BaseException {
 		super(msg,
 				ExceptionCodeEnum.INTERNAL_SERVER_EXCEPTION.getCode());
 	}
+
+	public InternalException(Integer code, String msg) {
+		super(msg, code);
+	}
 }
