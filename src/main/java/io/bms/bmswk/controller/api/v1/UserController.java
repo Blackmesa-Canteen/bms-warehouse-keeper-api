@@ -6,6 +6,8 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.model.vo.UserVO;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.util.BeanUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +53,8 @@ public class UserController {
      * get user by primary key
      */
     @GetMapping("/{id}")
+    @RequiresAuthentication
+    @RequiresPermissions("user_manage")
     public R getUserById(@PathVariable String id) {
         // TODO update user VO
         // user vo ignores sensitive information

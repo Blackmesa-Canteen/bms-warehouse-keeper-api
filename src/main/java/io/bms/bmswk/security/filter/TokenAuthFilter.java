@@ -1,5 +1,8 @@
 package io.bms.bmswk.security.filter;
 
+import com.alibaba.fastjson.JSON;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
+import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.security.model.AuthToken;
 import io.bms.bmswk.security.util.TokenStrUtils;
@@ -16,6 +19,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * <p>
@@ -62,21 +66,21 @@ public class TokenAuthFilter extends BasicHttpAuthenticationFilter {
 
     /**
      * Show 401 response
+     * https://note.dolyw.com/shirojwt/ShiroJwt03-401.html
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         if (isLoginAttempt(request, response)) {
-            // if token header exists
+            // if token header exists, or @RequiresAuthentication is marked
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
+                // redirect to no permission page
                 redirect403(request, response);
+                return false;
             }
-        } else {
-            // if missing token, still reject!
-            redirect403(request, response);
-            return false;
         }
+
         return true;
     }
 
@@ -101,11 +105,27 @@ public class TokenAuthFilter extends BasicHttpAuthenticationFilter {
      * redirect to 403 route
      */
     private void redirect403(ServletRequest req, ServletResponse resp) {
+        HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
+        httpServletResponse.setStatus(401);
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json; charset=utf-8");
+        PrintWriter out = null;
         try {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
-            httpServletResponse.sendRedirect("/403");
+            out = httpServletResponse.getWriter();
+            String data = JSON.toJSONString(
+                    R.error(
+                            ExceptionCodeEnum.NO_PERMISSION_EXCEPTION.getCode(),
+                            ExceptionCodeEnum.NO_PERMISSION_EXCEPTION.getMessage()
+                    )
+            );
+
+            out.append(data);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
     }
 }
