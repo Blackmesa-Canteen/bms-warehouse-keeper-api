@@ -13,4 +13,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IWarehouseService extends IService<Warehouse> {
 
+    /**
+     * create a new warehouse
+     * @param name name of the warehouse
+     * @param address address str
+     * @param cityId city id int
+     */
+    void createWareHouse(String name, String address, Integer cityId);
 }

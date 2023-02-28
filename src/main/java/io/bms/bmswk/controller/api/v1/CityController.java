@@ -29,6 +29,12 @@ public class CityController {
         return R.ok().setData(city);
     }
 
+    /**
+     * get all city
+     * @param page page num
+     * @param size page size
+     * @return
+     */
     @GetMapping("/all")
     public R getCitiesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<City> thePage = cityService.page(new Page<>(page, size));

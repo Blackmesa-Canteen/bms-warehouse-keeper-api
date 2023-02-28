@@ -23,9 +23,11 @@ import org.apache.http.HttpStatus;
 
 public enum ExceptionCodeEnum {
 
+    OK(HttpStatus.SC_OK, "ok"),
     INTERNAL_SERVER_EXCEPTION(HttpStatus.SC_INTERNAL_SERVER_ERROR,"Internal server error"),
 
     UNKNOW_EXCEPTION(10000,"Unknown system exception"),
+    REQUEST_GENERIC_EXCEPTION(10002, "Generic request exception"),
 
     VAILD_EXCEPTION(10400,"Param validation exceiption"),
     PRODUCT_IN_EXCEPTION(11000,"register product in stock error"),
