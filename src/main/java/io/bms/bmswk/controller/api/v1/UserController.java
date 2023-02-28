@@ -4,6 +4,7 @@ import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.UserRegisterParam;
 import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.model.vo.UserVO;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -53,8 +54,7 @@ public class UserController {
      * get user by primary key
      */
     @GetMapping("/{id}")
-    @RequiresAuthentication
-    @RequiresPermissions("user_manage")
+    @RequiresPermissions(SecurityConstant.USER_MANAGE_PERMISSION)
     public R getUserById(@PathVariable String id) {
         // TODO update user VO
         // user vo ignores sensitive information

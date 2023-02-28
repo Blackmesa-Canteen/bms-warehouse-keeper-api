@@ -48,11 +48,11 @@ public class SecurityConstant {
     public final static String SUPER_ROLE_NAME = "super";
 
     /** permission names for RBAC */
-    public final static String INVENTORY_PURCHASE_PERMISSION = "inventory_purchase";
-    public final static String INVENTORY_CONSUME_PERMISSION = "inventory_consume";
-    public final static String INVENTORY_MANAGE_PERMISSION = "inventory_manage";
-    public final static String USER_MANAGE_PERMISSION = "user_manage";
-    public final static String INVENTORY_SEE = "inventory_see";
+    public final static String INVENTORY_PURCHASE_PERMISSION = "sys:inventory:purchase";
+    public final static String INVENTORY_CONSUME_PERMISSION = "sys:inventory:consume";
+    public final static String INVENTORY_MANAGE_PERMISSION = "sys:inventory:manage";
+    public final static String USER_MANAGE_PERMISSION = "sys:user:manage";
+    public final static String INVENTORY_SEE = "sys:inventory:details";
 
     /**
      * shiro
