@@ -1,5 +1,6 @@
 package io.bms.bmswk.controller.api.v1;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.UserLoginParam;
 import io.bms.bmswk.model.param.UserRegisterParam;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>
@@ -72,10 +75,18 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public R getUserById(@PathVariable String id) {
-        // user vo ignores sensitive information
+        // user vo ignores sensitive information: password
         User user = userService.getById(id);
         UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
         return R.ok().setData(userVO);
+    }
+
+    @GetMapping("/all")
+    public R getAllUserByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+        Page<User> thePage = userService.page(new Page<>(page, size));
+        List<UserVO> userVOList = new LinkedList<>();
+        thePage.getRecords().forEach(user -> userVOList.add(BeanUtils.transformFrom(user, UserVO.class)));
+        return R.ok().setData(userVOList);
     }
 
 }

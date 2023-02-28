@@ -22,7 +22,7 @@ import javax.validation.Valid;
  * @author 996worker
  * @since 2023-02-23
  */
-@Controller
+@RestController
 @Validated
 @RequestMapping("/api/v1/warehouse")
 public class WarehouseController {
