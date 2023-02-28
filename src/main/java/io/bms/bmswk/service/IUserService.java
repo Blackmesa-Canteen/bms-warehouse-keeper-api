@@ -23,7 +23,7 @@ public interface IUserService extends IService<User> {
      * @param phone user phone
      * @return ok if done, else exception
      */
-    public void registerUser(String loginId, String name, String password,
+    void registerUser(String loginId, String name, String password,
                           Integer roleId, String phone);
 
     /**
@@ -31,5 +31,5 @@ public interface IUserService extends IService<User> {
      * @param loginId
      * @return user info
      */
-    public User getUserByLoginId(String loginId);
+    User getUserByLoginId(String loginId);
 }

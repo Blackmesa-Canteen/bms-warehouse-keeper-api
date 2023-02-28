@@ -23,12 +23,17 @@ public class PermissionController {
     @Autowired
     private IPermissionService permissionService;
 
+    @GetMapping("/{permissionId}")
+    public R findPermissionByPermissionId(@PathVariable String permissionId) {
+        return R.ok().setData(permissionService.getById(permissionId));
+    }
+
     @GetMapping("/role_name/{roleName}")
     public R findPermissionsByRoleName(@PathVariable String roleName) {
         return R.ok().setData(permissionService.getPermissionListByRoleName(roleName));
     }
 
-    @GetMapping("/role_name/{roleId}")
+    @GetMapping("/role_id/{roleId}")
     public R findPermissionsByRoleId(@PathVariable String roleId) {
         Integer roleIdInt = Integer.parseInt(roleId);
         return R.ok().setData(permissionService.getPermissionListByRoleId(roleIdInt));

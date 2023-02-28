@@ -1,15 +1,12 @@
 package io.bms.bmswk.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import io.bms.bmswk.exception.DuplicatedUserException;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.mapper.UserMapper;
-import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.bms.bmswk.util.EncryptionUtils;
+import io.bms.bmswk.security.util.EncryptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package io.bms.bmswk.util;
+package io.bms.bmswk.security.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

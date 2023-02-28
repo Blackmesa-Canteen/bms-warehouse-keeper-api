@@ -23,8 +23,12 @@ public interface ITokenHelper {
 
     /**
      * gen token with expiration date
-     *
-     * @return token string
+     * @param userPk user pk int
+     * @param loginId login id string
+     * @param userName user display name string
+     * @param roleId role id int
+     * @return auth token
+     * @throws AuthException
      */
     String genTokenStr(Integer userPk, String loginId, String userName, Integer roleId) throws AuthException;
 }
