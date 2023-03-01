@@ -12,4 +12,8 @@ public class NoStockException extends BaseException{
     public NoStockException() {
         super(ExceptionCodeEnum.NO_STOCK_EXCEPTION.getMessage(), ExceptionCodeEnum.NO_STOCK_EXCEPTION.getCode());
     }
+
+    public NoStockException(String msg) {
+        super(msg, ExceptionCodeEnum.NO_STOCK_EXCEPTION.getCode());
+    }
 }

@@ -81,6 +81,12 @@ public class UserController {
         return R.ok().setData(userVO);
     }
 
+    @DeleteMapping("{id}")
+    public R deleteUserById(@PathVariable String id) {
+        userService.removeById(id);
+        return R.ok();
+    }
+
     @GetMapping("/all")
     public R getAllUserByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<User> thePage = userService.page(new Page<>(page, size));

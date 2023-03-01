@@ -36,23 +36,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // CHECK EXISTENCE
         Map<String, Object> map = new HashMap<>();
         map.put("login_id", loginId);
-        List<User> users = userMapper.selectByMap(map);
-        if (users.size() > 0) {
-            throw new DuplicatedUserException();
+
+        // prevent duplicated record in multi admin
+        synchronized (this) {
+            List<User> users = userMapper.selectByMap(map);
+            if (users.size() > 0) {
+                throw new DuplicatedUserException();
+            }
+
+            // encrypt pass
+            String cypher = EncryptionUtils.hashpw(password, EncryptionUtils.gensalt());
+
+
+            // add to db
+            User user = new User();
+            user.setLoginId(loginId);
+            user.setName(name);
+            user.setPassword(cypher);
+            user.setRoleId(roleId);
+            user.setPhone(phone);
+            userMapper.insert(user);
         }
-
-        // encrypt pass
-        String cypher = EncryptionUtils.hashpw(password, EncryptionUtils.gensalt());
-
-
-        // add to db
-        User user = new User();
-        user.setLoginId(loginId);
-        user.setName(name);
-        user.setPassword(cypher);
-        user.setRoleId(roleId);
-        user.setPhone(phone);
-        userMapper.insert(user);
     }
 
     @Override

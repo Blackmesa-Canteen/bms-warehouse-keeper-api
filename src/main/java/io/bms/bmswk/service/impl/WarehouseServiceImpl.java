@@ -30,17 +30,19 @@ public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse
     @Override
     public void createWareHouse(String name, String address, Integer cityId) {
 
-        // check wether city is exist or not
-        City city = cityService.getById(cityId);
-        if (city == null) {
-            throw new RequestException("City id not exist in db");
+        synchronized (this) {
+            // check wether city is exist or not
+            City city = cityService.getById(cityId);
+            if (city == null) {
+                throw new RequestException("City id not exist in db");
+            }
+
+            Warehouse warehouse = new Warehouse();
+            warehouse.setName(name);
+            warehouse.setAddress(address);
+            warehouse.setCityId(cityId);
+
+            warehouseMapper.insert(warehouse);
         }
-
-        Warehouse warehouse = new Warehouse();
-        warehouse.setName(name);
-        warehouse.setAddress(address);
-        warehouse.setCityId(cityId);
-
-        warehouseMapper.insert(warehouse);
     }
 }

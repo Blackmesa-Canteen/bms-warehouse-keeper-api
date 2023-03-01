@@ -1,11 +1,17 @@
 package io.bms.bmswk.controller.api.v1;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.exception.NotImplementedException;
 import io.bms.bmswk.model.entity.Warehouse;
+import io.bms.bmswk.model.entity.WarehouseSku;
+import io.bms.bmswk.model.param.AddStockParam;
+import io.bms.bmswk.model.param.DeductStockParam;
 import io.bms.bmswk.model.param.WarehouseCreateParam;
 import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.service.IWarehouseService;
+import io.bms.bmswk.service.IWarehouseSkuService;
+import io.bms.bmswk.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -29,6 +35,9 @@ public class WarehouseController {
 
     @Autowired
     private IWarehouseService warehouseService;
+
+    @Autowired
+    private IWarehouseSkuService warehouseSkuService;
 
     /**
      * create new warehouse
@@ -61,6 +70,20 @@ public class WarehouseController {
     public R getWarehousesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Warehouse> thePage = warehouseService.page(new Page<>(page, size));
         return R.ok().setData(thePage.getRecords());
+    }
+
+    @PostMapping("/add")
+    public R addProductInWarehouse(@RequestBody @Valid AddStockParam param) {
+        warehouseSkuService.addSkuInWarehouse(param.getWarehouseId(), param.getSkuId(), param.getNum(), param.getUnit());
+
+        return R.ok();
+    }
+
+    @PostMapping("/deduct")
+    public R deductProductInWarehouse(@RequestBody @Valid DeductStockParam param) {
+        warehouseSkuService.deductSkuInWareHouse(param.getWarehouseId(), param.getSkuId(), param.getNum());
+
+        return R.ok();
     }
 
     @GetMapping("/query")
