@@ -1,14 +1,19 @@
 package io.bms.bmswk.service.impl;
 
+import io.bms.bmswk.exception.NotImplementedException;
 import io.bms.bmswk.exception.RequestException;
+import io.bms.bmswk.model.dto.InventoryItemDTO;
 import io.bms.bmswk.model.entity.City;
 import io.bms.bmswk.model.entity.Warehouse;
 import io.bms.bmswk.mapper.WarehouseMapper;
+import io.bms.bmswk.model.vo.InventoryItemVO;
 import io.bms.bmswk.service.ICityService;
 import io.bms.bmswk.service.IWarehouseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -44,5 +49,11 @@ public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse
 
             warehouseMapper.insert(warehouse);
         }
+    }
+
+    @Override
+    public List<InventoryItemDTO> listWarehouseInventoryByIdByPage(Integer page, Integer size, Integer warehouseId) {
+        // TODO
+        throw new NotImplementedException();
     }
 }

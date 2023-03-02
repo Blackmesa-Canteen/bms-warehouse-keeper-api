@@ -70,8 +70,8 @@ public class PurchaseController {
 
     @GetMapping("/audit")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
-    public R auditOnePurchaseRequest(@RequestParam(name = "isConfirmed") Boolean isConfirmed,
-                                     @RequestParam(name = "purchaseId") Integer purchaseId) {
+    public R auditOnePurchaseRequest(@RequestParam(value = "isConfirmed") Boolean isConfirmed,
+                                     @RequestParam(value = "purchaseId") Integer purchaseId) {
         Integer keeperId = (Integer) SecurityUtils.getSubject().getPrincipal();
 
         purchaseService.auditPurchaseOrderStatus(

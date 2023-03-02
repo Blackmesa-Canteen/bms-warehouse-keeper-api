@@ -3,14 +3,16 @@ package io.bms.bmswk.controller.api.v1;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.exception.NotImplementedException;
+import io.bms.bmswk.model.dto.InventoryItemDTO;
+import io.bms.bmswk.model.entity.City;
 import io.bms.bmswk.model.entity.Warehouse;
 import io.bms.bmswk.model.entity.WarehouseSku;
 import io.bms.bmswk.model.param.AddStockParam;
 import io.bms.bmswk.model.param.DeductStockParam;
 import io.bms.bmswk.model.param.WarehouseCreateParam;
 import io.bms.bmswk.model.support.R;
-import io.bms.bmswk.service.IWarehouseService;
-import io.bms.bmswk.service.IWarehouseSkuService;
+import io.bms.bmswk.model.vo.WarehouseVO;
+import io.bms.bmswk.service.*;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +41,16 @@ public class WarehouseController {
     private IWarehouseService warehouseService;
 
     @Autowired
+    ICityService cityService;
+
+    @Autowired
     private IWarehouseSkuService warehouseSkuService;
+
+    @Autowired
+    private ISkuService skuService;
+
+    @Autowired
+    private ISpuService spuService;
 
     /**
      * create new warehouse
@@ -56,8 +69,22 @@ public class WarehouseController {
     @GetMapping("/{warehouseId}")
     public R getWarehouseById(@PathVariable String warehouseId) {
         Warehouse warehouse = warehouseService.getById(Integer.parseInt(warehouseId));
+        if (warehouse == null) {
+            return R.ok();
+        }
 
-        return R.ok().setData(warehouse);
+        City city = cityService.getById(warehouse.getCityId());
+        WarehouseVO warehouseVO = new WarehouseVO();
+        warehouseVO.setWarehouseName(warehouse.getName());
+        warehouseVO.setWarehouseId(warehouse.getId());
+        warehouseVO.setAddress(warehouse.getAddress());
+
+        if (city != null) {
+            warehouseVO.setCityId(city.getId());
+            warehouseVO.setCityName(city.getName());
+        }
+
+        return R.ok().setData(warehouseVO);
     }
 
     /**
@@ -69,7 +96,46 @@ public class WarehouseController {
     @GetMapping("/all")
     public R getWarehousesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Warehouse> thePage = warehouseService.page(new Page<>(page, size));
-        return R.ok().setData(thePage.getRecords());
+
+        List<Warehouse> records = thePage.getRecords();
+        List<WarehouseVO> warehouseVOList = new LinkedList<>();
+        records.stream().forEach(warehouse -> {
+            City city = cityService.getById(warehouse.getCityId());
+            WarehouseVO warehouseVO = new WarehouseVO();
+            warehouseVO.setWarehouseName(warehouse.getName());
+            warehouseVO.setWarehouseId(warehouse.getId());
+            warehouseVO.setAddress(warehouse.getAddress());
+
+            if (city != null) {
+                warehouseVO.setCityId(city.getId());
+                warehouseVO.setCityName(city.getName());
+            }
+
+            warehouseVOList.add(warehouseVO);
+        });
+        return R.ok().setData(warehouseVOList);
+    }
+
+    /**
+     * get inventory items by warehouse Id
+     * @param page page no
+     * @param size page size
+     * @param warehouseId target warehouse Id
+     * @return list of items
+     */
+    @GetMapping("/inventory/{warehouseId}")
+    public R getInventoryDetailsByWarehouseIdByPage(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @PathVariable String warehouseId) {
+
+        List<InventoryItemDTO> itemDTOList = warehouseService.listWarehouseInventoryByIdByPage(
+                page,
+                size,
+                Integer.parseInt(warehouseId)
+        );
+
+        return R.ok().setData(itemDTOList);
     }
 
     @PostMapping("/add")

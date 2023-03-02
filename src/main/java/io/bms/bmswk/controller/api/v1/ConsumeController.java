@@ -72,8 +72,8 @@ public class ConsumeController {
 
     @GetMapping("/audit")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
-    public R auditOneConsumeRequest(@RequestParam(name = "isConfirmed") Boolean isConfirmed,
-                                       @RequestParam(name = "consumeId") Integer consumeId) {
+    public R auditOneConsumeRequest(@RequestParam(value = "isConfirmed") Boolean isConfirmed,
+                                       @RequestParam(value = "consumeId") Integer consumeId) {
 
         Integer keeperId = (Integer) SecurityUtils.getSubject().getPrincipal();
 

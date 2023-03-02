@@ -19,11 +19,15 @@ public class UserVO {
 
     private Integer roleId;
 
+    private String roleName;
+
     private LocalDateTime dtCreated;
 
     private LocalDateTime dtUpdated;
 
     private Byte status;
+
+    private String statusName;
 
     private String phone;
 
@@ -89,5 +93,21 @@ public class UserVO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

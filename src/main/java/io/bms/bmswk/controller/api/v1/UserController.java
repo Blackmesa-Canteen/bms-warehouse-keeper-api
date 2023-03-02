@@ -1,6 +1,8 @@
 package io.bms.bmswk.controller.api.v1;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.bms.bmswk.constant.CommonConstant;
+import io.bms.bmswk.model.entity.Role;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.UserLoginParam;
 import io.bms.bmswk.model.param.UserRegisterParam;
@@ -8,6 +10,7 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.model.vo.UserVO;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.security.service.IAuthService;
+import io.bms.bmswk.security.service.IRoleService;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -39,6 +42,9 @@ public class UserController {
 
     @Autowired
     IAuthService authService;
+
+    @Autowired
+    IRoleService roleService;
 
     /**
      * register user
@@ -77,7 +83,11 @@ public class UserController {
     public R getUserById(@PathVariable String id) {
         // user vo ignores sensitive information: password
         User user = userService.getById(id);
+        Role role = roleService.getById(user.getRoleId());
         UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
+        if (userVO != null) {
+            userVO.setRoleName(role.getName());
+        }
         return R.ok().setData(userVO);
     }
 
@@ -91,7 +101,16 @@ public class UserController {
     public R getAllUserByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<User> thePage = userService.page(new Page<>(page, size));
         List<UserVO> userVOList = new LinkedList<>();
-        thePage.getRecords().forEach(user -> userVOList.add(BeanUtils.transformFrom(user, UserVO.class)));
+        thePage.getRecords().forEach(user -> {
+            UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
+
+            Role role = roleService.getById(user.getRoleId());
+            if (userVO != null) {
+                userVO.setRoleName(role.getName());
+            }
+
+            userVOList.add(userVO);
+        });
         return R.ok().setData(userVOList);
     }
 
