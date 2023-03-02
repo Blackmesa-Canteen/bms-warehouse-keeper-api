@@ -22,4 +22,6 @@ public class CommonConstant {
     public final static Byte OPERATION_PENDING = 1;
 
     public final static Byte OPERATION_FINISHED = 2;
+
+    public final static Byte OPERATION_REJECTED = 3;
 }

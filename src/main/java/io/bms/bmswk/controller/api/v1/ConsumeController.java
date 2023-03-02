@@ -1,22 +1,17 @@
 package io.bms.bmswk.controller.api.v1;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.model.entity.Consume;
-import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.ConsumeCreateParam;
 import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.IConsumeService;
-import io.bms.bmswk.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 
 import javax.validation.Valid;
 
@@ -42,8 +37,23 @@ public class ConsumeController {
     }
 
     @GetMapping("/all")
-    public R getConsumesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
-        Page<Consume> thePage = consumeService.page(new Page<>(page, size));
+    public R getConsumesByPage(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "status") Byte status) {
+
+        if (status == null) {
+            Page<Consume> thePage = consumeService.page(
+                    new Page<>(page, size)
+            );
+            return R.ok().setData(thePage.getRecords());
+        }
+
+        QueryWrapper<Consume> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", status);
+        Page<Consume> thePage = consumeService.page(
+                new Page<>(page, size), wrapper
+        );
 
         return R.ok().setData(thePage.getRecords());
     }
@@ -62,15 +72,15 @@ public class ConsumeController {
 
     @GetMapping("/audit")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
-    public R toggleConsumerOrderStatus(@RequestParam(name = "status") Byte status,
+    public R auditOneConsumeRequest(@RequestParam(name = "isConfirmed") Boolean isConfirmed,
                                        @RequestParam(name = "consumeId") Integer consumeId) {
 
-        Integer userId = (Integer) SecurityUtils.getSubject().getPrincipal();
+        Integer keeperId = (Integer) SecurityUtils.getSubject().getPrincipal();
 
-        consumeService.toggleConsumeOrderStatus(
+        consumeService.auditConsumeOrderStatus(
                 consumeId,
-                status,
-                userId
+                keeperId,
+                isConfirmed
         );
 
         return R.ok();

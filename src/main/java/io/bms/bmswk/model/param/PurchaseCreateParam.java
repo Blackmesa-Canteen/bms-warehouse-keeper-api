@@ -1,6 +1,7 @@
 package io.bms.bmswk.model.param;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -25,5 +26,45 @@ public class PurchaseCreateParam {
     private Integer purchaserId;
 
     @NotNull
-    private Long price;
+    private BigDecimal price;
+
+    public Integer getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(Integer skuId) {
+        this.skuId = skuId;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public Integer getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(Integer warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+    public Integer getPurchaserId() {
+        return purchaserId;
+    }
+
+    public void setPurchaserId(Integer purchaserId) {
+        this.purchaserId = purchaserId;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

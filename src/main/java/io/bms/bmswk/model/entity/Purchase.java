@@ -3,6 +3,7 @@ package io.bms.bmswk.model.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,7 +42,7 @@ public class Purchase implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
-    private Long price;
+    private BigDecimal price;
 
     @ApiModelProperty("audit warehouse keeper id")
     private Integer keeperId;
@@ -114,11 +115,11 @@ public class Purchase implements Serializable {
         this.dtUpdated = dtUpdated;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

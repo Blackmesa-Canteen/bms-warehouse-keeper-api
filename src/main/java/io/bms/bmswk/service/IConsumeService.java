@@ -31,11 +31,11 @@ public interface IConsumeService extends IService<Consume> {
     void updateOneConsumeOrder(Integer consumeId, Integer num, Byte status, Integer keeperId);
 
     /**
-     * used for warehouse keeper to toggle consume order status
+     * used for warehouse keeper to audit consume order
      * @param consumeId consume order id
-     * @param status status byte
-     * @param keeperId user id
+     * @param keeperId warehouse keeper user id
+     * @param isConfirmed if confirm, order finish, and put the stuff in warehouse
      */
-    void toggleConsumeOrderStatus(Integer consumeId, Byte status, Integer keeperId);
+    void auditConsumeOrderStatus(Integer consumeId, Integer keeperId, Boolean isConfirmed);
 
 }
