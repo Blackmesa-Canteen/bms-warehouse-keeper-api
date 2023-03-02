@@ -53,7 +53,18 @@ public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse
 
     @Override
     public List<InventoryItemDTO> listWarehouseInventoryByIdByPage(Integer page, Integer size, Integer warehouseId) {
-        // TODO
-        throw new NotImplementedException();
+
+        int offset = (page - 1) * size;
+        if (offset < 0) {
+            offset = 0;
+        }
+
+        List<InventoryItemDTO> res = warehouseMapper.listWarehouseInventoryByIdByPage(
+                warehouseId,
+                offset,
+                size
+        );
+
+        return res;
     }
 }

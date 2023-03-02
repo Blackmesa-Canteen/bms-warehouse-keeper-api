@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.bms.bmswk.mapper.WarehouseMapper">
 
+    <select id="listWarehouseInventoryByIdByPage" resultType="io.bms.bmswk.model.dto.InventoryItemDTO">
+        SELECT sk_sp.sku_id as sku_id, sku_name, saleable, param, price, spu_id, spu_name, category_id, warehouse_id, warehouse_name, num, unit
+        FROM (
+                 (SELECT sk.id as sku_id, sk.name as sku_name, sk.saleable as saleable, sk.param as param, sk.price as price, sp.id as spu_id, sp.name as spu_name, sp.category_id as category_id
+                  FROM (t_sku sk INNER JOIN t_spu sp on sk.spu_id = sp.id)) as sk_sp
+                     INNER JOIN
+                     (SELECT wh.id as warehouse_id, wh.name as warehouse_name, whs.sku_id as sku_id, whs.num as num, whs.unit as unit
+                      FROM (t_warehouse wh INNER JOIN t_warehouse_sku whs ON wh.id = whs.warehouse_id)) as wh_whs
+                 ON sk_sp.sku_id = wh_whs.sku_id
+                 )
+        WHERE warehouse_id = #{warehouseId}
+        LIMIT #{offset}, #{size}
+    </select>
+
 </mapper>

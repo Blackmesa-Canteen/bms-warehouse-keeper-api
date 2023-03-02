@@ -16,8 +16,6 @@ public class InventoryItemDTO {
 
     Integer warehouseId;
 
-    String categoryName;
-
     Integer categoryId;
 
     String skuName;
@@ -34,13 +32,9 @@ public class InventoryItemDTO {
 
     String param;
 
-    public String getCategoryName() {
-        return categoryName;
-    }
+    Integer num;
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    String unit;
 
     public String getSkuName() {
         return skuName;
@@ -122,15 +116,37 @@ public class InventoryItemDTO {
         this.spuId = spuId;
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     @Override
     public String toString() {
-        return "InventoryItemVO{" +
-                "categoryName='" + categoryName + '\'' +
+        return "InventoryItemDTO{" +
+                "warehouseName='" + warehouseName + '\'' +
+                ", warehouseId=" + warehouseId +
+                ", categoryId=" + categoryId +
                 ", skuName='" + skuName + '\'' +
+                ", skuId=" + skuId +
                 ", spuName='" + spuName + '\'' +
+                ", spuId=" + spuId +
                 ", price=" + price +
                 ", saleable=" + saleable +
                 ", param='" + param + '\'' +
+                ", num=" + num +
+                ", unit='" + unit + '\'' +
                 '}';
     }
 }
