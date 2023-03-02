@@ -10,6 +10,8 @@ import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.exception.AuthException;
 import io.bms.bmswk.exception.NotImplementedException;
 import io.bms.bmswk.security.model.AuthToken;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -26,6 +28,8 @@ import java.util.Date;
  */
 @Component
 public class JwtTokenHelper implements ITokenHelper {
+
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     @Override
     public AuthToken validateAndDecodeTokenStr(String token) throws AuthException {
@@ -52,11 +56,38 @@ public class JwtTokenHelper implements ITokenHelper {
 
             return res;
         } catch (JWTDecodeException e) {
+            LOGGER.error(e);
             throw new AuthException("token decode error");
         } catch (JWTVerificationException e) {
+            LOGGER.error(e);
             throw new AuthException("token invalid");
         } catch (Exception e) {
+            LOGGER.error(e);
             throw new AuthException("Exception in validate and decode token str");
+        }
+    }
+
+    @Override
+    public AuthToken decodeTokenStr(String token) throws AuthException {
+        try {
+            DecodedJWT decodedJWT = JWT.decode(token);
+            // build token dto
+            AuthToken res = new AuthToken();
+            res.setToken(token);
+            res.setUserPk(decodedJWT.getClaim(SecurityConstant.JWT_CLAIM_USER_PRIMARY_KEY).asInt());
+            res.setLoginId(decodedJWT.getClaim(SecurityConstant.JWT_CLAIM_LOGIN_ID).asString());
+            res.setUserName(decodedJWT.getClaim(SecurityConstant.JWT_CLAIM_USERNAME).asString());
+            res.setRoleId(decodedJWT.getClaim(SecurityConstant.JWT_CLAIM_ROLE_ID).asInt());
+            res.setIssuedDate(decodedJWT.getIssuedAt());
+            res.setExpirationDate(decodedJWT.getExpiresAt());
+
+            return res;
+        } catch (JWTDecodeException e) {
+            LOGGER.error(e);
+            throw new AuthException("token decode error");
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new AuthException("token unknown decode error");
         }
     }
 
@@ -80,6 +111,7 @@ public class JwtTokenHelper implements ITokenHelper {
                     .withIssuer(SecurityConstant.JWT_ISSUER)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
+            LOGGER.error(e);
             throw new AuthException("gen jwt token error");
         }
     }

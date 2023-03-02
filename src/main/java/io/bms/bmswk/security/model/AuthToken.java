@@ -34,7 +34,7 @@ public class AuthToken implements AuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return loginId;
+        return userPk;
     }
 
     @Override

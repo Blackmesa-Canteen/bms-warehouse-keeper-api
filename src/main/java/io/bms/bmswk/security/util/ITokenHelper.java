@@ -22,6 +22,14 @@ public interface ITokenHelper {
     AuthToken validateAndDecodeTokenStr(String token) throws AuthException;
 
     /**
+     * decode token without validation
+     * @param token string
+     * @return auth obj
+     * @throws AuthException exception
+     */
+    AuthToken decodeTokenStr(String token) throws AuthException;
+
+    /**
      * gen token with expiration date
      * @param userPk user pk int
      * @param loginId login id string

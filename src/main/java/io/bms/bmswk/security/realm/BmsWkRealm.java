@@ -66,7 +66,7 @@ public class BmsWkRealm extends AuthorizingRealm {
         // validate auth token
         try {
             AuthToken authToken = tokenHelper.validateAndDecodeTokenStr(tokenStr);
-            return new SimpleAuthenticationInfo(authToken.getLoginId(), tokenStr, SecurityConstant.REALM_NAME_BMS_WK);
+            return new SimpleAuthenticationInfo(authToken.getUserPk(), tokenStr, SecurityConstant.REALM_NAME_BMS_WK);
 
         } catch (AuthException e) {
             throw new AuthenticationException(e.getMessage(), e);
@@ -78,10 +78,10 @@ public class BmsWkRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String loginId = principalCollection.toString();
-        LOGGER.debug(String.format("doGetAuthorizationInfo: principal user loginId: %s", loginId));
+        Integer userId = principalCollection.oneByType(Integer.class);
+        LOGGER.debug(String.format("doGetAuthorizationInfo: principal user pk id: %s", userId));
 
-        User userInfo = userService.getUserByLoginId(loginId);
+        User userInfo = userService.getById(userId);
 
         // get role
         Integer roleId = userInfo.getRoleId();
