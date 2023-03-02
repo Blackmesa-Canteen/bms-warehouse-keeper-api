@@ -41,6 +41,8 @@ public class Sku implements Serializable {
     private Boolean saleable;
 
     @ApiModelProperty("logic delete")
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     private Boolean valid;
 
     @TableField(fill = FieldFill.INSERT)

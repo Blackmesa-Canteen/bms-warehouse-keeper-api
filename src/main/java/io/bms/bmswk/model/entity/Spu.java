@@ -35,6 +35,8 @@ public class Spu implements Serializable {
     private Boolean saleable;
 
     @ApiModelProperty("is valid")
+    @TableField(fill = FieldFill.INSERT)
+    @TableLogic
     private Boolean valid;
 
     @TableField(fill = FieldFill.INSERT)

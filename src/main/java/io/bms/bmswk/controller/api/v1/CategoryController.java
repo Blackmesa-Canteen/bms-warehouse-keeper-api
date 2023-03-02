@@ -72,7 +72,9 @@ public class CategoryController {
             }
 
             Category category = BeanUtils.transformFrom(param, Category.class);
-
+            if (category != null) {
+                category.setValid(true);
+            }
             // insert category params batch
             List<CategoryParamCreateParam> params = param.getParams();
             List<CategoryParam> paramEntities = new LinkedList<>();

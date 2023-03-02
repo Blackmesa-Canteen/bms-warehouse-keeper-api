@@ -36,6 +36,10 @@ public class Warehouse implements Serializable {
 
     private String name;
 
+    @TableField(fill = FieldFill.INSERT)
+    @TableLogic
+    private Boolean valid;
+
     public Integer getId() {
         return id;
     }
@@ -82,6 +86,14 @@ public class Warehouse implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     @Override

@@ -40,6 +40,10 @@ public class CategoryParam implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
+    private Boolean valid;
+
     public Integer getId() {
         return id;
     }
@@ -94,6 +98,14 @@ public class CategoryParam implements Serializable {
 
     public void setDtUpdated(LocalDateTime dtUpdated) {
         this.dtUpdated = dtUpdated;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     @Override

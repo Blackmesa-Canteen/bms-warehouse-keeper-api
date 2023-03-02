@@ -36,6 +36,10 @@ public class Consume implements Serializable {
     private Byte status;
 
     @TableField(fill = FieldFill.INSERT)
+    @TableLogic
+    private Boolean valid;
+
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime dtCreated;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
@@ -114,6 +118,14 @@ public class Consume implements Serializable {
 
     public void setKeeperId(Integer keeperId) {
         this.keeperId = keeperId;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     @Override

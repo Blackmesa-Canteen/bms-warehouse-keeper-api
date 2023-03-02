@@ -74,8 +74,13 @@ public class WarehouseSkuServiceImpl extends ServiceImpl<WarehouseSkuMapper, War
                 }
 
                 Integer targetNum = originalNum - num;
-                warehouseSku.setNum(targetNum);
-                this.updateById(warehouseSku);
+                if (targetNum == 0) {
+                    // if num to 0, remove from table
+                    this.removeById(warehouseSku);
+                } else {
+                    warehouseSku.setNum(targetNum);
+                    this.updateById(warehouseSku);
+                }
             }
         }
     }

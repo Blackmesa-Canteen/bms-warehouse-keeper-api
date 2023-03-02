@@ -46,6 +46,10 @@ public class Purchase implements Serializable {
     @ApiModelProperty("audit warehouse keeper id")
     private Integer keeperId;
 
+    @TableField(fill = FieldFill.INSERT)
+    @TableLogic
+    private Boolean valid;
+
     public Integer getId() {
         return id;
     }
@@ -124,6 +128,14 @@ public class Purchase implements Serializable {
 
     public void setKeeperId(Integer keeperId) {
         this.keeperId = keeperId;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     @Override
