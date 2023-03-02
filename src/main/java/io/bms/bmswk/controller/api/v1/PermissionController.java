@@ -1,7 +1,9 @@
 package io.bms.bmswk.controller.api.v1;
 
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.security.service.IPermissionService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,16 +27,19 @@ public class PermissionController {
     private IPermissionService permissionService;
 
     @GetMapping("/{permissionId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R findPermissionByPermissionId(@PathVariable String permissionId) {
         return R.ok().setData(permissionService.getById(permissionId));
     }
 
     @GetMapping("/role_name/{roleName}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R findPermissionsByRoleName(@PathVariable String roleName) {
         return R.ok().setData(permissionService.getPermissionListByRoleName(roleName));
     }
 
     @GetMapping("/role_id/{roleId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R findPermissionsByRoleId(@PathVariable String roleId) {
         Integer roleIdInt = Integer.parseInt(roleId);
         return R.ok().setData(permissionService.getPermissionListByRoleId(roleIdInt));

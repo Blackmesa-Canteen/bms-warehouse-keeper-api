@@ -80,6 +80,7 @@ public class UserController {
      * get user by primary key
      */
     @GetMapping("/{id}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getUserById(@PathVariable String id) {
         // user vo ignores sensitive information: password
         User user = userService.getById(id);
@@ -92,12 +93,14 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
+    @RequiresPermissions({SecurityConstant.USER_MANAGE_PERMISSION})
     public R deleteUserById(@PathVariable String id) {
         userService.removeById(id);
         return R.ok();
     }
 
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getAllUserByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<User> thePage = userService.page(new Page<>(page, size));
         List<UserVO> userVOList = new LinkedList<>();

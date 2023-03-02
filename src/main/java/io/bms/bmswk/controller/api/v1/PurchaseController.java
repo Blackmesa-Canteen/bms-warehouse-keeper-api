@@ -32,11 +32,13 @@ public class PurchaseController {
     private IPurchaseService purchaseService;
 
     @GetMapping("/{purchaseId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getPurchaseById(@PathVariable String purchaseId) {
         return R.ok().setData(purchaseService.getById(Integer.parseInt(purchaseId)));
     }
 
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getPurchasesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -56,6 +58,7 @@ public class PurchaseController {
     }
 
     @PostMapping("")
+    @RequiresPermissions({SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R createOnePurchase(@RequestBody @Valid PurchaseCreateParam param) {
         purchaseService.createOnePurchaseOrder(
                 param.getSkuId(),

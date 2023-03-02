@@ -9,13 +9,14 @@ import io.bms.bmswk.model.entity.CategoryParam;
 import io.bms.bmswk.model.param.CategoryCreateParam;
 import io.bms.bmswk.model.param.CategoryParamCreateParam;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.ICategoryParamService;
 import io.bms.bmswk.service.ICategoryService;
 import io.bms.bmswk.util.BeanUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
 import java.util.LinkedList;
@@ -41,16 +42,19 @@ public class CategoryController {
     private ICategoryParamService categoryParamService;
 
     @GetMapping("/{categoryId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getCategoryById(@PathVariable String categoryId) {
         return R.ok().setData(categoryService.getById(Integer.parseInt(categoryId)));
     }
 
     @DeleteMapping("/{categoryId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R deleteCategoryById(@PathVariable String categoryId) {
         throw new NotImplementedException();
     }
 
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getCategoriesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Category> thePage = categoryService.page(new Page<>(page, size));
 
@@ -58,6 +62,7 @@ public class CategoryController {
     }
 
     @PostMapping("")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R createCategory(@RequestBody @Valid CategoryCreateParam param) {
 
         // check duplicate

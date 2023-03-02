@@ -2,7 +2,9 @@ package io.bms.bmswk.controller.api.v1;
 
 import io.bms.bmswk.model.entity.Role;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.security.service.IRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ public class RoleController {
     private IRoleService roleService;
 
     @GetMapping("/{roleId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getRoleById(@PathVariable String roleId) {
         Role role = roleService.getById(Integer.parseInt(roleId));
         return R.ok().setData(role);

@@ -1,10 +1,5 @@
 package io.bms.bmswk.security.constant;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
-
 /**
  * <p>
  * constants for security modules
@@ -52,7 +47,7 @@ public class SecurityConstant {
     public final static String INVENTORY_CONSUME_PERMISSION = "sys:inventory:consume";
     public final static String INVENTORY_MANAGE_PERMISSION = "sys:inventory:manage";
     public final static String USER_MANAGE_PERMISSION = "sys:user:manage";
-    public final static String INVENTORY_SEE = "sys:inventory:details";
+    public final static String INVENTORY_SEE_PERMISSION = "sys:inventory:details";
 
     /**
      * shiro

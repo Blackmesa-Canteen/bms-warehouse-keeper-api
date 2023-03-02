@@ -5,8 +5,10 @@ import io.bms.bmswk.model.entity.Spu;
 import io.bms.bmswk.model.param.SpuCreateParam;
 import io.bms.bmswk.model.param.SpuUpdateParam;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.ISpuService;
 import io.bms.bmswk.util.BeanUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +33,14 @@ public class SpuController {
     private ISpuService spuService;
 
     @GetMapping("/{spuId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getSpuById(@PathVariable String spuId) {
         Spu spu = spuService.getById(Integer.parseInt(spuId));
         return R.ok().setData(spu);
     }
 
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getAllSpuByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Spu> thePage = spuService.page(new Page<>(page, size));
 
@@ -44,6 +48,7 @@ public class SpuController {
     }
 
     @PostMapping("")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R addOneSpu(@RequestBody @Valid SpuCreateParam param) {
         Spu spu = new Spu();
         spu.setName(param.getName());
@@ -57,6 +62,7 @@ public class SpuController {
     }
 
     @PutMapping("/{spuId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R editOneSpu(@RequestBody @Valid SpuUpdateParam param, @PathVariable String spuId) {
         Integer id = Integer.parseInt(spuId);
         Spu spu = spuService.getById(id);

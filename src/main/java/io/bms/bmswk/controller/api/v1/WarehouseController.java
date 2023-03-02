@@ -12,9 +12,11 @@ import io.bms.bmswk.model.param.DeductStockParam;
 import io.bms.bmswk.model.param.WarehouseCreateParam;
 import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.model.vo.WarehouseVO;
+import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.*;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +60,7 @@ public class WarehouseController {
      * @return R
      */
     @PostMapping("")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R createNewWarehouse(@RequestBody @Valid WarehouseCreateParam param) {
         warehouseService.createWareHouse(param.getName(), param.getAddress(), param.getCityId());
         return R.ok();
@@ -67,6 +70,7 @@ public class WarehouseController {
      * find warehouse by id
      */
     @GetMapping("/{warehouseId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getWarehouseById(@PathVariable String warehouseId) {
         Warehouse warehouse = warehouseService.getById(Integer.parseInt(warehouseId));
         if (warehouse == null) {
@@ -94,6 +98,7 @@ public class WarehouseController {
      * @return R
      */
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getWarehousesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Warehouse> thePage = warehouseService.page(new Page<>(page, size));
 
@@ -124,6 +129,7 @@ public class WarehouseController {
      * @return list of items
      */
     @GetMapping("/inventory/{warehouseId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getInventoryDetailsByWarehouseIdByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -139,6 +145,7 @@ public class WarehouseController {
     }
 
     @PostMapping("/add")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R addProductInWarehouse(@RequestBody @Valid AddStockParam param) {
         warehouseSkuService.addSkuInWarehouse(param.getWarehouseId(), param.getSkuId(), param.getNum(), param.getUnit());
 
@@ -146,6 +153,7 @@ public class WarehouseController {
     }
 
     @PostMapping("/deduct")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R deductProductInWarehouse(@RequestBody @Valid DeductStockParam param) {
         warehouseSkuService.deductSkuInWareHouse(param.getWarehouseId(), param.getSkuId(), param.getNum());
 
@@ -153,6 +161,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/query")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R queryWarehousesByPage(
             @RequestParam(value = "name") String name,
             @RequestParam(value = "cityId") Integer cityId,

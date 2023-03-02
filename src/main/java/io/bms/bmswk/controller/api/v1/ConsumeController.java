@@ -32,11 +32,13 @@ public class ConsumeController {
     private IConsumeService consumeService;
 
     @GetMapping("/{consumeId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getConsumeById(@PathVariable String consumeId) {
         return R.ok().setData(consumeService.getById(Integer.parseInt(consumeId)));
     }
 
     @GetMapping("/all")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getConsumesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -59,6 +61,7 @@ public class ConsumeController {
     }
 
     @PostMapping("")
+    @RequiresPermissions({SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R createConsumeOrder(@RequestBody @Valid ConsumeCreateParam param) {
         consumeService.createOneConsumeOrder(
                 param.getSkuId(),
