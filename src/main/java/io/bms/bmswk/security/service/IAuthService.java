@@ -27,4 +27,11 @@ public interface IAuthService {
      */
     void registerUser(String loginId, String name, String password,
                       Integer roleId, String phone);
+
+    /**
+     * refresh outdated token string
+     * @param tokenStr tokenStr
+     * @return string new token
+     */
+    String refreshTokenStr (String tokenStr);
 }

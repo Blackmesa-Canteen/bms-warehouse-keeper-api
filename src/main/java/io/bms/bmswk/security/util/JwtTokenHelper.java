@@ -5,7 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import io.bms.bmswk.exception.AuthExpiredException;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.exception.AuthException;
 import io.bms.bmswk.exception.NotImplementedException;
@@ -58,6 +60,9 @@ public class JwtTokenHelper implements ITokenHelper {
         } catch (JWTDecodeException e) {
             LOGGER.error(e);
             throw new AuthException("token decode error");
+        } catch (TokenExpiredException e) {
+            LOGGER.error(e);
+            throw new AuthExpiredException("token expired");
         } catch (JWTVerificationException e) {
             LOGGER.error(e);
             throw new AuthException("token invalid");
@@ -114,6 +119,21 @@ public class JwtTokenHelper implements ITokenHelper {
             LOGGER.error(e);
             throw new AuthException("gen jwt token error");
         }
+    }
+
+    @Override
+    public String refreshTokenStr(String tokenStr) throws AuthException {
+        AuthToken authToken;
+        try {
+            authToken = validateAndDecodeTokenStr(tokenStr);
+
+        } catch (AuthExpiredException e) {
+            // ignore expired, and force decode
+            authToken = decodeTokenStr(tokenStr);
+        }
+
+        // gen new token and return
+        return genTokenStr(authToken.getUserPk(), authToken.getLoginId(), authToken.getUserName(), authToken.getRoleId());
     }
 
     @Override

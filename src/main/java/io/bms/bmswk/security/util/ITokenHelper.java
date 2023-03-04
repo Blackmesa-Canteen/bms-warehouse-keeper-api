@@ -39,4 +39,11 @@ public interface ITokenHelper {
      * @throws AuthException
      */
     String genTokenStr(Integer userPk, String loginId, String userName, Integer roleId) throws AuthException;
+
+    /**
+     * refresh token str
+     * @param tokenStr
+     * @return new token str
+     */
+    String refreshTokenStr(String tokenStr);
 }

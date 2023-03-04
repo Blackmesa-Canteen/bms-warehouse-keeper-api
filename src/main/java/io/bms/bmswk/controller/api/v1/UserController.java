@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.constant.CommonConstant;
 import io.bms.bmswk.model.entity.Role;
 import io.bms.bmswk.model.entity.User;
+import io.bms.bmswk.model.param.RefreshTokenParam;
 import io.bms.bmswk.model.param.UserLoginParam;
 import io.bms.bmswk.model.param.UserRegisterParam;
 import io.bms.bmswk.model.support.R;
@@ -73,6 +74,17 @@ public class UserController {
     @PostMapping("/login")
     public R login(@RequestBody @Valid UserLoginParam param) {
         String token = authService.loginUser(param.getLoginId(), param.getPassword());
+        return R.ok().setData(token);
+    }
+
+    /**
+     * refresh auth token
+     * @param param
+     * @return
+     */
+    @PostMapping("/refreshToken")
+    public R login(@RequestBody @Valid RefreshTokenParam param) {
+        String token = authService.refreshTokenStr(param.getToken());
         return R.ok().setData(token);
     }
 

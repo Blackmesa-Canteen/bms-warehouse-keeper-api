@@ -72,4 +72,9 @@ public class AuthService implements IAuthService {
                 phone
         );
     }
+
+    @Override
+    public String refreshTokenStr(String tokenStr) {
+        return tokenHelper.refreshTokenStr(tokenStr);
+    }
 }
