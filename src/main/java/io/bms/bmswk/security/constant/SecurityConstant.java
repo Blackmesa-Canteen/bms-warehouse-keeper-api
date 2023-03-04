@@ -25,7 +25,7 @@ public class SecurityConstant {
     public final static String JWT_KEY = System.getenv("JWT_KEY");
     public final static String JWT_ISSUER = System.getenv("JWT_ISSUER");
     public final static long JWT_VALIDITY_MS =
-            System.getenv("JWT_VALIDITY_MS") == null ? 24 * 60 * 60 * 1000
+            System.getenv("JWT_VALIDITY_MS") == null ? 15 * 60 * 1000
                     : Long.parseLong(System.getenv("JWT_VALIDITY_MS"));
 
     /** JWT cliam names */
