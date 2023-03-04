@@ -10,6 +10,7 @@ import io.bms.bmswk.model.param.RefreshTokenParam;
 import io.bms.bmswk.model.param.UserLoginParam;
 import io.bms.bmswk.model.param.UserRegisterParam;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.model.vo.RefreshTokenVo;
 import io.bms.bmswk.model.vo.UserLoginVO;
 import io.bms.bmswk.model.vo.UserVO;
 import io.bms.bmswk.security.constant.SecurityConstant;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -98,7 +100,9 @@ public class UserController {
     @PostMapping("/refreshToken")
     public R refresh(@RequestBody @Valid RefreshTokenParam param) {
         String token = authService.refreshTokenStr(param.getToken());
-        return R.ok().setData(token);
+        RefreshTokenVo refreshTokenVo = new RefreshTokenVo();
+        refreshTokenVo.setToken(token);
+        return R.ok().setData(refreshTokenVo);
     }
 
     /**
