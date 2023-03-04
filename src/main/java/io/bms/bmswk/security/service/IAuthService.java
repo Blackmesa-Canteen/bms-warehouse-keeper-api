@@ -1,6 +1,7 @@
 package io.bms.bmswk.security.service;
 
 import io.bms.bmswk.exception.AuthException;
+import io.bms.bmswk.model.dto.UserLoginDTO;
 
 /**
  * @author xiaotian
@@ -14,7 +15,7 @@ public interface IAuthService {
      * @return auth token if successful, otherwise, return null
      * @throws AuthException yes
      */
-    String loginUser(String loginId, String password) throws AuthException;
+    UserLoginDTO loginUser(String loginId, String password) throws AuthException;
 
     /**
      * Create a user account

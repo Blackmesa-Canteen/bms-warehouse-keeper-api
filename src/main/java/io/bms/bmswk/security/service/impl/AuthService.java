@@ -2,6 +2,7 @@ package io.bms.bmswk.security.service.impl;
 
 import io.bms.bmswk.exception.AuthException;
 import io.bms.bmswk.exception.ExceptionCodeEnum;
+import io.bms.bmswk.model.dto.UserLoginDTO;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.security.service.IAuthService;
 import io.bms.bmswk.security.util.ITokenHelper;
@@ -32,7 +33,7 @@ public class AuthService implements IAuthService {
     private ITokenHelper tokenHelper;
 
     @Override
-    public String loginUser(String loginId, String password) throws AuthException {
+    public UserLoginDTO loginUser(String loginId, String password) throws AuthException {
         User userRecord = userService.getUserByLoginId(loginId);
         // if user not exist
         if (userRecord == null) {
@@ -52,14 +53,21 @@ public class AuthService implements IAuthService {
         }
 
         // gen token
-        String authToken = tokenHelper.genTokenStr(
+        String authTokenStr = tokenHelper.genTokenStr(
                 userRecord.getId(),
                 userRecord.getLoginId(),
                 userRecord.getName(),
                 userRecord.getRoleId()
         );
 
-        return authToken;
+        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        userLoginDTO.setUserId(userRecord.getId());
+        userLoginDTO.setUserName(userRecord.getName());
+        userLoginDTO.setRoleId(userRecord.getRoleId());
+        userLoginDTO.setToken(authTokenStr);
+        userLoginDTO.setLoginId(userRecord.getLoginId());
+
+        return userLoginDTO;
     }
 
     @Override

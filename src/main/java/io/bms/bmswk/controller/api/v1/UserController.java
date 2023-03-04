@@ -2,15 +2,19 @@ package io.bms.bmswk.controller.api.v1;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.constant.CommonConstant;
+import io.bms.bmswk.model.dto.PermissionDTO;
+import io.bms.bmswk.model.dto.UserLoginDTO;
 import io.bms.bmswk.model.entity.Role;
 import io.bms.bmswk.model.entity.User;
 import io.bms.bmswk.model.param.RefreshTokenParam;
 import io.bms.bmswk.model.param.UserLoginParam;
 import io.bms.bmswk.model.param.UserRegisterParam;
 import io.bms.bmswk.model.support.R;
+import io.bms.bmswk.model.vo.UserLoginVO;
 import io.bms.bmswk.model.vo.UserVO;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.security.service.IAuthService;
+import io.bms.bmswk.security.service.IPermissionService;
 import io.bms.bmswk.security.service.IRoleService;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.util.BeanUtils;
@@ -47,6 +51,9 @@ public class UserController {
     @Autowired
     IRoleService roleService;
 
+    @Autowired
+    IPermissionService permissionService;
+
     /**
      * register user
      * @param param register request body
@@ -73,8 +80,14 @@ public class UserController {
      */
     @PostMapping("/login")
     public R login(@RequestBody @Valid UserLoginParam param) {
-        String token = authService.loginUser(param.getLoginId(), param.getPassword());
-        return R.ok().setData(token);
+        UserLoginDTO userLoginDTO = authService.loginUser(param.getLoginId(), param.getPassword());
+        Role role = roleService.getById(userLoginDTO.getRoleId());
+        List<PermissionDTO> permissions = permissionService.getPermissionListByRoleId(role.getId());
+
+        UserLoginVO userLoginVO = BeanUtils.transformFrom(userLoginDTO, UserLoginVO.class);
+        userLoginVO.setRoleName(role.getName());
+        userLoginVO.setPermissions(permissions);
+        return R.ok().setData(userLoginVO);
     }
 
     /**
@@ -83,7 +96,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/refreshToken")
-    public R login(@RequestBody @Valid RefreshTokenParam param) {
+    public R refresh(@RequestBody @Valid RefreshTokenParam param) {
         String token = authService.refreshTokenStr(param.getToken());
         return R.ok().setData(token);
     }
@@ -97,9 +110,11 @@ public class UserController {
         // user vo ignores sensitive information: password
         User user = userService.getById(id);
         Role role = roleService.getById(user.getRoleId());
+        List<PermissionDTO> permissions = permissionService.getPermissionListByRoleId(role.getId());
         UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
         if (userVO != null) {
             userVO.setRoleName(role.getName());
+            userVO.setPermissions(permissions);
         }
         return R.ok().setData(userVO);
     }

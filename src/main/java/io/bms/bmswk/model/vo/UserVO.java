@@ -1,6 +1,9 @@
 package io.bms.bmswk.model.vo;
 
+import io.bms.bmswk.model.dto.PermissionDTO;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -30,6 +33,8 @@ public class UserVO {
     private String statusName;
 
     private String phone;
+
+    private List<PermissionDTO> permissions;
 
     public Integer getId() {
         return id;
@@ -109,5 +114,13 @@ public class UserVO {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<PermissionDTO> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<PermissionDTO> permissions) {
+        this.permissions = permissions;
     }
 }
