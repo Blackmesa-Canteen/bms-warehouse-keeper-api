@@ -92,7 +92,7 @@ public class UserController {
         return R.ok().setData(userVO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @RequiresPermissions({SecurityConstant.USER_MANAGE_PERMISSION})
     public R deleteUserById(@PathVariable String id) {
         userService.removeById(id);
