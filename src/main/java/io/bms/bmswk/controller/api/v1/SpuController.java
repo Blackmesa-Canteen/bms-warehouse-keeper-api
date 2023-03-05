@@ -10,6 +10,7 @@ import io.bms.bmswk.service.ISpuService;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -64,11 +65,14 @@ public class SpuController {
     @PutMapping("/{spuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R editOneSpu(@RequestBody @Valid SpuUpdateParam param, @PathVariable String spuId) {
-        Integer id = Integer.parseInt(spuId);
-        Spu spu = spuService.getById(id);
-        BeanUtils.updateProperties(param, spu);
 
-        spuService.updateById(spu);
+        synchronized (this) {
+            Integer id = Integer.parseInt(spuId);
+            Spu spu = spuService.getById(id);
+            BeanUtils.updateProperties(param, spu);
+
+            spuService.updateById(spu);
+        }
 
         return R.ok();
     }

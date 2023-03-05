@@ -12,6 +12,7 @@ import io.bms.bmswk.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -40,6 +41,7 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
     private IUserService userService;
 
     @Override
+    @Transactional
     public void createOneConsumeOrder(Integer skuId, Integer warehouseId, Integer consumerId, Integer num) {
 
         synchronized (this) {
@@ -70,6 +72,7 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
     }
 
     @Override
+    @Transactional
     public void updateOneConsumeOrder(Integer consumeId, Integer num, Byte status, Integer keeperId) {
 
         synchronized (this) {
@@ -96,6 +99,7 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
     }
 
     @Override
+    @Transactional
     public void auditConsumeOrderStatus(Integer consumeId, Integer keeperId, Boolean isConfirmed) {
         synchronized (this) {
             Consume consume = this.getById(consumeId);

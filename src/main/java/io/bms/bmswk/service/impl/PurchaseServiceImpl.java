@@ -11,6 +11,7 @@ import io.bms.bmswk.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -38,6 +39,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
     private IUserService userService;
 
     @Override
+    @Transactional
     public void createOnePurchaseOrder(Integer skuId, Integer warehouseId, Integer purchaserId, Integer num, BigDecimal price) {
         synchronized (this) {
             // check existence
@@ -67,6 +69,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
     }
 
     @Override
+    @Transactional
     public void updateOnePurchaseOrder(Integer purchaseId, Integer num, Byte status, Integer keeperId) {
         synchronized (this) {
             Purchase purchase = this.getById(purchaseId);
@@ -92,6 +95,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
     }
 
     @Override
+    @Transactional
     public void auditPurchaseOrderStatus(Integer purchaseId, Integer keeperId, Boolean isConfirmed) {
         synchronized (this) {
             Purchase purchase = this.getById(purchaseId);

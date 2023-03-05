@@ -10,6 +10,7 @@ import io.bms.bmswk.service.ISkuService;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,9 +62,12 @@ public class SkuController {
     @PutMapping("/{skuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R editOneSku(@RequestBody @Valid SkuUpdateParam param, @PathVariable String skuId) {
-        Sku sku = skuService.getById(Integer.parseInt(skuId));
-        BeanUtils.updateProperties(param, sku);
-        skuService.updateById(sku);
+
+        synchronized (this) {
+            Sku sku = skuService.getById(Integer.parseInt(skuId));
+            BeanUtils.updateProperties(param, sku);
+            skuService.updateById(sku);
+        }
 
         return R.ok();
     }

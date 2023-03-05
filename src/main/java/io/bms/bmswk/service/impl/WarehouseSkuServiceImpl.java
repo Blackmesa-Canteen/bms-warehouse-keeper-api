@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.bms.bmswk.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -24,6 +25,7 @@ public class WarehouseSkuServiceImpl extends ServiceImpl<WarehouseSkuMapper, War
 
 
     @Override
+    @Transactional
     public void addSkuInWarehouse(Integer warehouseId, Integer skuId, Integer num, String unit) {
         QueryWrapper<WarehouseSku> wrapper = new QueryWrapper<>();
         wrapper.eq("warehouse_id", warehouseId)
@@ -55,6 +57,7 @@ public class WarehouseSkuServiceImpl extends ServiceImpl<WarehouseSkuMapper, War
     }
 
     @Override
+    @Transactional
     public void deductSkuInWareHouse(Integer warehouseId, Integer skuId, Integer num) {
         QueryWrapper<WarehouseSku> wrapper = new QueryWrapper<>();
         wrapper.eq("warehouse_id", warehouseId)
