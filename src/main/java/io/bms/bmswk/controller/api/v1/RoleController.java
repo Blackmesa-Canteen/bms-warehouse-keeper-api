@@ -28,7 +28,7 @@ public class RoleController {
     private IRoleService roleService;
 
     @GetMapping("/{roleId}")
-    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION, SecurityConstant.USER_MANAGE_PERMISSION})
     public R getRoleById(@PathVariable String roleId) {
         Role role = roleService.getById(Integer.parseInt(roleId));
         return R.ok().setData(role);

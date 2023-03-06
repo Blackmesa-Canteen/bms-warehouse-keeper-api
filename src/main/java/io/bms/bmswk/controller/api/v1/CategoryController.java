@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.NotImplementedException;
+import io.bms.bmswk.model.dto.CategoryParamDTO;
 import io.bms.bmswk.model.entity.Category;
 import io.bms.bmswk.model.entity.CategoryParam;
 import io.bms.bmswk.model.param.CategoryCreateParam;
@@ -80,19 +81,25 @@ public class CategoryController {
             if (category != null) {
                 category.setValid(true);
             }
+            // save category
+            categoryService.save(category);
+            // get the new one
+            Category newOne = categoryService.getOne(wrapper);
+
+            //
             // insert category params batch
-            List<CategoryParamCreateParam> params = param.getParams();
+            List<CategoryParamDTO> params = param.getParams();
             List<CategoryParam> paramEntities = new LinkedList<>();
-            for (CategoryParamCreateParam obj : params) {
+            for (CategoryParamDTO obj : params) {
                 CategoryParam categoryParam = BeanUtils.transformFrom(obj, CategoryParam.class);
+                categoryParam.setCategoryId(newOne.getId());
                 paramEntities.add(categoryParam);
             }
 
             // save params
             categoryParamService.saveBatch(paramEntities);
 
-            // save category
-            categoryService.save(category);
+
 
             return R.ok();
         }

@@ -139,8 +139,10 @@ public class UserController {
             UserVO userVO = BeanUtils.transformFrom(user, UserVO.class);
 
             Role role = roleService.getById(user.getRoleId());
+            List<PermissionDTO> permissions = permissionService.getPermissionListByRoleId(user.getRoleId());
             if (userVO != null) {
                 userVO.setRoleName(role.getName());
+                userVO.setPermissions(permissions);
             }
 
             userVOList.add(userVO);

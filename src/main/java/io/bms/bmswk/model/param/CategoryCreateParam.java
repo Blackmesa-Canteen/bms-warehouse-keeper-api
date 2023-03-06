@@ -1,5 +1,7 @@
 package io.bms.bmswk.model.param;
 
+import io.bms.bmswk.model.dto.CategoryParamDTO;
+
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class CategoryCreateParam {
     String name;
 
     @NotNull
-    List<CategoryParamCreateParam> params;
+    List<CategoryParamDTO> params;
 
     public String getName() {
         return name;
@@ -27,11 +29,11 @@ public class CategoryCreateParam {
         this.name = name;
     }
 
-    public List<CategoryParamCreateParam> getParams() {
+    public List<CategoryParamDTO> getParams() {
         return params;
     }
 
-    public void setParams(List<CategoryParamCreateParam> params) {
+    public void setParams(List<CategoryParamDTO> params) {
         this.params = params;
     }
 }

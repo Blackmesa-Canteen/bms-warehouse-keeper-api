@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -34,6 +35,13 @@ public class CategoryParamController {
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getCategoryParamById(@PathVariable String categoryParamId) {
         return R.ok().setData(categoryParamService.getById(Integer.parseInt(categoryParamId)));
+    }
+
+    @GetMapping("/query")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    public R getCategoryParamByCategoryId(@RequestParam(value = "categoryId") Integer categoryId) {
+        List<CategoryParam> res = categoryParamService.getAllParamsByCategoryId(categoryId);
+        return R.ok().setData(res);
     }
 
     @DeleteMapping("/{categoryParamId}")

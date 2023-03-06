@@ -29,7 +29,7 @@ public class CategoryParam implements Serializable {
     private String name;
 
     @ApiModelProperty("is numeric parameter")
-    private Boolean numeric;
+    private Boolean isNumeric;
 
     @ApiModelProperty("unit")
     private String unit;
@@ -68,12 +68,12 @@ public class CategoryParam implements Serializable {
         this.name = name;
     }
 
-    public Boolean getNumeric() {
-        return numeric;
+    public Boolean getIsNumeric() {
+        return isNumeric;
     }
 
-    public void setNumeric(Boolean numeric) {
-        this.numeric = numeric;
+    public void setIsNumeric(Boolean isNumeric) {
+        this.isNumeric = isNumeric;
     }
 
     public String getUnit() {
@@ -114,7 +114,7 @@ public class CategoryParam implements Serializable {
             "id = " + id +
             ", categoryId = " + categoryId +
             ", name = " + name +
-            ", numeric = " + numeric +
+            ", numeric = " + isNumeric +
             ", unit = " + unit +
             ", dtCreated = " + dtCreated +
             ", dtUpdated = " + dtUpdated +

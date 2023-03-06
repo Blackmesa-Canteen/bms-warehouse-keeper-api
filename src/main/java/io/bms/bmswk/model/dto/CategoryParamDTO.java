@@ -1,4 +1,4 @@
-package io.bms.bmswk.model.param;
+package io.bms.bmswk.model.dto;
 
 import javax.validation.constraints.NotNull;
 
@@ -8,12 +8,9 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author 996Worker
- * @since 2023-03-01 16:05
+ * @since 2023-03-06 13:58
  */
-public class CategoryParamCreateParam {
-
-    @NotNull
-    Integer categoryId;
+public class CategoryParamDTO {
 
     @NotNull
     String name;
@@ -23,14 +20,6 @@ public class CategoryParamCreateParam {
 
     @NotNull
     String unit;
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getName() {
         return name;

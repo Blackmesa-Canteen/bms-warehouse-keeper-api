@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 public class RefreshTokenParam {
 
-    @NotNull
+    @NotNull(message = "token should not be null")
     String token;
 
     public String getToken() {
