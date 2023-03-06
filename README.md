@@ -1,7 +1,28 @@
 # Introduction
 Black Mesa Inventory system - An inventory system which can keep track of stock for a warehouse. Backend RESTful API project
-https://zq99299.github.io/mysql-tutorial/ali-new-retail/04/09.html#%E8%AE%BE%E8%AE%A1%E7%94%A8%E6%88%B7%E8%A1%A8
-### Reference Documentation
+
+# Guide
+This guide instruct how to build & run the project.
+
+## Environment Variables
+Required env vars are listed below with example values
+- JWT_KEY={{some secret}}
+- MYSQL_DB_HOSTNAME=localhost
+- MYSQL_DB_PASSWORD={{some password}}
+- MYSQL_DB_PORT=3306
+- MYSQL_DB_USERNAME=root
+- JWT_ISSUER=www.996workers.icu
+
+## Docker (recommended)
+- Docker compose is needed. Two containers in runtime: bms-wk-api-service and bms-wk-api-mysql-service
+- Dockerfile is located in the project root dir;
+- Docker network is needed for localhost MySQL access in the container;
+
+**Guides:**
+
+## JRE
+- Java 11: Check the `.jar` file in release page.
+- MySQL 8: Dumped sql file is in `/migration`, use the latest one.
 
 For further reference, please consider the following sections:
 
@@ -9,12 +30,4 @@ For further reference, please consider the following sections:
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.8/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.8/maven-plugin/reference/html/#build-image)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.8/reference/htmlsingle/#web)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
