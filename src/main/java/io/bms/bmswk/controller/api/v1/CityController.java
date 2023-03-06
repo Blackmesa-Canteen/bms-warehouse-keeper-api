@@ -37,6 +37,14 @@ public class CityController {
         return R.ok().setData(city);
     }
 
+    @DeleteMapping("/{id}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    public R deleteCityById(@PathVariable Integer id) {
+        cityService.deleteCityById(id);
+
+        return R.ok();
+    }
+
     /**
      * get all city
      * @param page page num

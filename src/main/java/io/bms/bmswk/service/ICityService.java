@@ -17,4 +17,11 @@ import java.util.Map;
  */
 public interface ICityService extends IService<City> {
 
+    /**
+     * delete target city by id
+     * if city is used in warehouse, reject
+     * @param cityId
+     */
+    void deleteCityById(Integer cityId);
+
 }

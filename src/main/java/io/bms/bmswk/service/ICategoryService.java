@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICategoryService extends IService<Category> {
 
+    /**
+     * try to delete category and its category params
+     *
+     * If category is used in spus, reject
+     * @param categoryId int category id
+     */
+    void deleteCategoryById(Integer categoryId);
+
 }

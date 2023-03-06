@@ -23,4 +23,11 @@ public interface ISkuService extends IService<Sku> {
      * @return
      */
     List<Sku> getSkusBySpuId(Integer page, Integer size, Integer spuId);
+
+    /**
+     * try to delete a sku by its id.
+     * If sku is used in warehouse associate table, reject
+     * @param skuId
+     */
+    void deleteSkuById(Integer skuId);
 }

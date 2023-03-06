@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISpuService extends IService<Spu> {
 
     /**
-     * delete spu by id
+     * delete spu by id. If spu is used in sku table, reject.
      * @param spuId int
      */
     void deleteSpuById(Integer spuId);

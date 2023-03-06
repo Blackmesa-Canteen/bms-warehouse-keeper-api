@@ -2,6 +2,7 @@ package io.bms.bmswk.service.impl;
 
 import io.bms.bmswk.exception.NotImplementedException;
 import io.bms.bmswk.exception.RequestException;
+import io.bms.bmswk.mapper.CityMapper;
 import io.bms.bmswk.model.dto.InventoryItemDTO;
 import io.bms.bmswk.model.entity.City;
 import io.bms.bmswk.model.entity.Warehouse;
@@ -28,7 +29,7 @@ import java.util.List;
 public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse> implements IWarehouseService {
 
     @Autowired
-    ICityService cityService;
+    CityMapper cityMapper;
 
     @Autowired
     WarehouseMapper warehouseMapper;
@@ -39,7 +40,7 @@ public class WarehouseServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse
 
         synchronized (this) {
             // check wether city is exist or not
-            City city = cityService.getById(cityId);
+            City city = cityMapper.selectById(cityId);
             if (city == null) {
                 throw new RequestException("City id not exist in db");
             }

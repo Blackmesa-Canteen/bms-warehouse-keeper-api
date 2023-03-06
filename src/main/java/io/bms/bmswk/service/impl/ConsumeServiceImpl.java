@@ -3,6 +3,9 @@ package io.bms.bmswk.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.bms.bmswk.constant.CommonConstant;
 import io.bms.bmswk.exception.RequestException;
+import io.bms.bmswk.mapper.SkuMapper;
+import io.bms.bmswk.mapper.UserMapper;
+import io.bms.bmswk.mapper.WarehouseMapper;
 import io.bms.bmswk.model.entity.Consume;
 import io.bms.bmswk.mapper.ConsumeMapper;
 import io.bms.bmswk.model.entity.Sku;
@@ -24,37 +27,35 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> implements IConsumeService {
+    @Autowired
+    private SkuMapper skuMapper;
 
     @Autowired
-    private ConsumeMapper consumeMapper;
+    private WarehouseMapper warehouseMapper;
 
     @Autowired
-    private ISkuService skuService;
+    WarehouseMapper warehouseSkuMapper;
 
     @Autowired
-    private IWarehouseService warehouseService;
+    private UserMapper userMapper;
 
     @Autowired
-    IWarehouseSkuService warehouseSkuService;
-
-    @Autowired
-    private IUserService userService;
+    private IWarehouseSkuService warehouseSkuService;
 
     @Override
     @Transactional
     public void createOneConsumeOrder(Integer skuId, Integer warehouseId, Integer consumerId, Integer num) {
-
         synchronized (this) {
             // check existence
-            Sku sku = skuService.getById(skuId);
+            Sku sku = skuMapper.selectById(skuId);
             if (sku == null) {
                 throw new RequestException("sku id not exist");
             }
-            Warehouse warehouse = warehouseService.getById(warehouseId);
+            Warehouse warehouse = warehouseMapper.selectById(warehouseId);
             if (warehouse == null) {
                 throw new RequestException("warehouse not exist");
             }
-            User user = userService.getById(consumerId);
+            User user = userMapper.selectById(consumerId);
             if (user == null) {
                 throw new RequestException("consumer user not exist");
             }
@@ -74,7 +75,6 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
     @Override
     @Transactional
     public void updateOneConsumeOrder(Integer consumeId, Integer num, Byte status, Integer keeperId) {
-
         synchronized (this) {
             Consume consume = this.getById(consumeId);
             if (consume == null) {
@@ -82,7 +82,7 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
             }
 
             if (keeperId != null) {
-                User keeper = userService.getById(keeperId);
+                User keeper = userMapper.selectById(keeperId);
                 if (keeper == null) {
                     throw new RequestException("keeper user not exist");
                 }
@@ -111,14 +111,13 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
                 throw new RequestException("the consume request already been audited");
             }
 
-            User keeper = userService.getById(keeperId);
+            User keeper = userMapper.selectById(keeperId);
             if (keeper == null) {
                 throw new RequestException("keeper user not exist");
             }
 
             // update order status
             if (isConfirmed) {
-
                 try {
                     warehouseSkuService.deductSkuInWareHouse(
                             consume.getWarehouseId(),

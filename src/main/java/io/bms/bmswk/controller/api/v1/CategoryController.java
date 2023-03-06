@@ -50,8 +50,10 @@ public class CategoryController {
 
     @DeleteMapping("/{categoryId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
-    public R deleteCategoryById(@PathVariable String categoryId) {
-        throw new NotImplementedException();
+    public R deleteCategoryById(@PathVariable Integer categoryId) {
+        categoryService.deleteCategoryById(categoryId);
+
+        return R.ok();
     }
 
     @GetMapping("/all")
