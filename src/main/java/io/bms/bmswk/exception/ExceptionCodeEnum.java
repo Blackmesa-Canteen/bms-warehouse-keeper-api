@@ -23,21 +23,43 @@ import org.apache.http.HttpStatus;
 
 public enum ExceptionCodeEnum {
 
+    /** ok status for R response */
     OK(HttpStatus.SC_OK, "ok"),
+
+    /** 500 status for all internal server exception */
     INTERNAL_SERVER_EXCEPTION(HttpStatus.SC_INTERNAL_SERVER_ERROR,"Internal server error"),
 
+    /** default exception status code */
     UNKNOW_EXCEPTION(10000,"Unknown system exception"),
+
+    /** universal exception status show to requests */
     REQUEST_GENERIC_EXCEPTION(10002, "Generic request exception"),
 
+    /** request params failed to pass validation */
     VAILD_EXCEPTION(10400,"Param validation exceiption"),
+
+    /** error occurs in purchasing */
     PRODUCT_IN_EXCEPTION(11000,"register product in stock error"),
+
+    /** error in consume */
     PRODUCT_OUT_EXCEPTION(12000,"register product out stock error"),
+
+    /** stock not enough */
     NO_STOCK_EXCEPTION(12001,"Insufficient stock."),
+
+    /** product is sealed */
     PRDUCT_SEALED_EXCEPTION(12002,"Product is sealed and can not be out of warehouse."),
+
+    /** error occured in warehouse management */
     WAREHOUSE_MANAGEMENT_EXCEPTION(13000,"warehouse management error"),
+
     PRODUCT_NOT_FOUND_EXCEPTION(13404,"warehouse product not found"),
     USER_EXIST_EXCEPTION(14001,"Duplicated user"),
+
+    /** generic auth exception */
     AUTH_EXCEPTION(14402,"username or password error"),
+
+    /** no permission exception */
     NO_PERMISSION_EXCEPTION(14403,"no permission"),
     ;
 

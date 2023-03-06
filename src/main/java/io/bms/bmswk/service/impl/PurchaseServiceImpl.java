@@ -1,6 +1,7 @@
 package io.bms.bmswk.service.impl;
 
 import io.bms.bmswk.constant.CommonConstant;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.model.entity.Purchase;
 import io.bms.bmswk.mapper.PurchaseMapper;
@@ -45,15 +46,19 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
             // check existence
             Sku sku = skuService.getById(skuId);
             if (sku == null) {
-                throw new RequestException("sku id not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_IN_EXCEPTION.getCode(),
+                        "sku id not exist");
             }
+
             Warehouse warehouse = warehouseService.getById(warehouseId);
             if (warehouse == null) {
-                throw new RequestException("warehouse not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_IN_EXCEPTION.getCode(),
+                        "warehouse not exist");
             }
             User user = userService.getById(purchaserId);
             if (user == null) {
-                throw new RequestException("purchaser user not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_IN_EXCEPTION.getCode(),
+                        "purchaser user not exist");
             }
 
             Purchase purchase = new Purchase();
@@ -74,13 +79,15 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
         synchronized (this) {
             Purchase purchase = this.getById(purchaseId);
             if (purchase == null) {
-                throw new RequestException("target purhchase is not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_IN_EXCEPTION.getCode(),
+                        "target purhchase is not exist");
             }
 
             if (keeperId != null) {
                 User keeper = userService.getById(keeperId);
                 if (keeper == null) {
-                    throw new RequestException("keeper user not exist");
+                    throw new RequestException(ExceptionCodeEnum.PRODUCT_IN_EXCEPTION.getCode(),
+                            "keeper user not exist");
                 }
             }
 
@@ -100,16 +107,19 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> i
         synchronized (this) {
             Purchase purchase = this.getById(purchaseId);
             if (purchase == null) {
-                throw new RequestException("target purchase is not exist");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "target purchase is not exist");
             }
 
             if (!purchase.getStatus().equals(CommonConstant.OPERATION_PENDING)) {
-                throw new RequestException("the purchase request already been audited");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "the purchase request already been audited");
             }
 
             User keeper = userService.getById(keeperId);
             if (keeper == null) {
-                throw new RequestException("keeper user not exist");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "keeper user not exist");
             }
 
             // update request status

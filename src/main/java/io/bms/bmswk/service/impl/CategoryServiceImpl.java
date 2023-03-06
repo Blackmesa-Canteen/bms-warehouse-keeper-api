@@ -1,6 +1,7 @@
 package io.bms.bmswk.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.mapper.CategoryParamMapper;
 import io.bms.bmswk.mapper.SpuMapper;
@@ -43,7 +44,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         spuQueryWrapper.eq("category_id", categoryId);
         if (spuMapper.exists(spuQueryWrapper)) {
             // check existence in spu
-            throw new RequestException("Can not delete category because it is already in use.");
+            throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                    "Can not delete category because it is already in use.");
         }
 
         // delete related param

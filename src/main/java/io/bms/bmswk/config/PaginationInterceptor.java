@@ -16,6 +16,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class PaginationInterceptor {
+    /**
+     * enable MySQL physic pagination functionality.
+     * @return Bean
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

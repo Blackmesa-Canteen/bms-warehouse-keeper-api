@@ -2,6 +2,7 @@ package io.bms.bmswk.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.mapper.SpuMapper;
 import io.bms.bmswk.mapper.WarehouseSkuMapper;
@@ -49,7 +50,8 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements ISkuS
         QueryWrapper<WarehouseSku> associateQuery = new QueryWrapper<>();
         associateQuery.eq("sku_id", skuId);
         if (associateMapper.exists(associateQuery)) {
-            throw new RequestException("sku is in some warehouses now, can not directly remove");
+            throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                    "sku is in some warehouses now, can not directly remove");
         }
 
         this.removeById(skuId);

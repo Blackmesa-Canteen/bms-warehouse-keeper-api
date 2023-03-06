@@ -1,6 +1,7 @@
 package io.bms.bmswk.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.mapper.SkuMapper;
 import io.bms.bmswk.model.entity.Sku;
@@ -34,7 +35,8 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements ISpuS
         QueryWrapper<Sku> skuQueryWrapper = new QueryWrapper<>();
         skuQueryWrapper.eq("spu_id", spuId);
         if (skuMapper.exists(skuQueryWrapper)) {
-            throw new RequestException("spu is already used in sku, reject deletion");
+            throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                    "spu is already used in sku, reject deletion");
         }
 
         spuMapper.deleteById(spuId);

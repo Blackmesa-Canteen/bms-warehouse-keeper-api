@@ -16,4 +16,8 @@ public class RequestException extends BaseException{
     public RequestException(String msg) {
         super(msg, ExceptionCodeEnum.REQUEST_GENERIC_EXCEPTION.getCode());
     }
+
+    public RequestException(Integer code, String msg) {
+        super(msg, code);
+    }
 }

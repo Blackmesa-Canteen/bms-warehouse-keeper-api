@@ -2,6 +2,7 @@ package io.bms.bmswk.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.bms.bmswk.constant.CommonConstant;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.mapper.SkuMapper;
 import io.bms.bmswk.mapper.UserMapper;
@@ -49,15 +50,27 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
             // check existence
             Sku sku = skuMapper.selectById(skuId);
             if (sku == null) {
-                throw new RequestException("sku id not exist");
+                throw new RequestException(
+                        ExceptionCodeEnum.PRODUCT_OUT_EXCEPTION.getCode(),
+                        "sku id not exist");
             }
+
+            if (!sku.getSaleable()) {
+                throw new RequestException(
+                        ExceptionCodeEnum.PRDUCT_SEALED_EXCEPTION.getCode(),
+                        ExceptionCodeEnum.PRDUCT_SEALED_EXCEPTION.getMessage()
+                );
+            }
+
             Warehouse warehouse = warehouseMapper.selectById(warehouseId);
             if (warehouse == null) {
-                throw new RequestException("warehouse not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_OUT_EXCEPTION.getCode(),
+                        "warehouse not exist");
             }
             User user = userMapper.selectById(consumerId);
             if (user == null) {
-                throw new RequestException("consumer user not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_OUT_EXCEPTION.getCode(),
+                        "consumer user not exist");
             }
 
             Consume consume = new Consume();
@@ -78,13 +91,15 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
         synchronized (this) {
             Consume consume = this.getById(consumeId);
             if (consume == null) {
-                throw new RequestException("target consume is not exist");
+                throw new RequestException(ExceptionCodeEnum.PRODUCT_OUT_EXCEPTION.getCode(),
+                        "target consume is not exist");
             }
 
             if (keeperId != null) {
                 User keeper = userMapper.selectById(keeperId);
                 if (keeper == null) {
-                    throw new RequestException("keeper user not exist");
+                    throw new RequestException(ExceptionCodeEnum.PRODUCT_OUT_EXCEPTION.getCode(),
+                            "keeper user not exist");
                 }
             }
 
@@ -104,16 +119,19 @@ public class ConsumeServiceImpl extends ServiceImpl<ConsumeMapper, Consume> impl
         synchronized (this) {
             Consume consume = this.getById(consumeId);
             if (consume == null) {
-                throw new RequestException("target consume is not exist");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "target consume is not exist");
             }
 
             if (!consume.getStatus().equals(CommonConstant.OPERATION_PENDING)) {
-                throw new RequestException("the consume request already been audited");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "the consume request already been audited");
             }
 
             User keeper = userMapper.selectById(keeperId);
             if (keeper == null) {
-                throw new RequestException("keeper user not exist");
+                throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                        "keeper user not exist");
             }
 
             // update order status

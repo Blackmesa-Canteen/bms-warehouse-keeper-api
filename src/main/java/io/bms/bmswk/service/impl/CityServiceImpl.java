@@ -2,6 +2,7 @@ package io.bms.bmswk.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.bms.bmswk.exception.ExceptionCodeEnum;
 import io.bms.bmswk.exception.RequestException;
 import io.bms.bmswk.mapper.WarehouseMapper;
 import io.bms.bmswk.model.entity.City;
@@ -43,7 +44,8 @@ public class CityServiceImpl extends ServiceImpl<CityMapper, City> implements IC
         QueryWrapper<Warehouse> warehouseQueryWrapper = new QueryWrapper<>();
         warehouseQueryWrapper.eq("city_id", cityId);
         if (warehouseMapper.exists(warehouseQueryWrapper)) {
-            throw new RequestException("city is already in used, can not remove");
+            throw new RequestException(ExceptionCodeEnum.WAREHOUSE_MANAGEMENT_EXCEPTION.getCode(),
+                    "city is already in used, can not remove");
         }
 
         this.removeById(cityId);
