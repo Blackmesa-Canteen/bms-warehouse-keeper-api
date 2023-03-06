@@ -8,6 +8,7 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.IPurchaseService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -32,13 +33,18 @@ public class PurchaseController {
     private IPurchaseService purchaseService;
 
     @GetMapping("/{purchaseId}")
-    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR)
     public R getPurchaseById(@PathVariable String purchaseId) {
         return R.ok().setData(purchaseService.getById(Integer.parseInt(purchaseId)));
     }
 
     @GetMapping("/all")
-    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR
+    )
     public R getPurchasesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -58,12 +64,15 @@ public class PurchaseController {
     }
 
     @PostMapping("")
-    @RequiresPermissions({SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR)
     public R createOnePurchase(@RequestBody @Valid PurchaseCreateParam param) {
+        Integer userId = (Integer) SecurityUtils.getSubject().getPrincipal();
         purchaseService.createOnePurchaseOrder(
                 param.getSkuId(),
                 param.getWarehouseId(),
-                param.getPurchaserId(),
+                userId,
                 param.getNum(),
                 param.getPrice()
         );

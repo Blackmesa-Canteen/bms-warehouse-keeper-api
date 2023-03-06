@@ -12,13 +12,13 @@ import javax.validation.constraints.NotNull;
  */
 public class SpuCreateParam {
 
-    @NotNull
+    @NotNull(message = "name should not null")
     String name;
 
-    @NotNull
+    @NotNull(message = "category id should not null")
     Integer categoryId;
 
-    @NotNull
+    @NotNull(message = "saleable should not null")
     Boolean saleable;
 
     public String getName() {

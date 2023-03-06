@@ -23,9 +23,6 @@ public class PurchaseCreateParam {
     private Integer warehouseId;
 
     @NotNull
-    private Integer purchaserId;
-
-    @NotNull
     private BigDecimal price;
 
     public Integer getSkuId() {
@@ -50,14 +47,6 @@ public class PurchaseCreateParam {
 
     public void setWarehouseId(Integer warehouseId) {
         this.warehouseId = warehouseId;
-    }
-
-    public Integer getPurchaserId() {
-        return purchaserId;
-    }
-
-    public void setPurchaserId(Integer purchaserId) {
-        this.purchaserId = purchaserId;
     }
 
     public BigDecimal getPrice() {

@@ -128,23 +128,23 @@ public class WarehouseController {
      * @param warehouseId target warehouse Id
      * @return list of items
      */
-    @GetMapping("/inventory/{warehouseId}")
+    @GetMapping("/items/query")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
     public R getInventoryDetailsByWarehouseIdByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
-            @PathVariable String warehouseId) {
+            @RequestParam(value = "warehouseId") Integer warehouseId) {
 
         List<InventoryItemDTO> itemDTOList = warehouseService.listWarehouseInventoryByIdByPage(
                 page,
                 size,
-                Integer.parseInt(warehouseId)
+                warehouseId
         );
 
         return R.ok().setData(itemDTOList);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/items/add")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R addProductInWarehouse(@RequestBody @Valid AddStockParam param) {
         warehouseSkuService.addSkuInWarehouse(param.getWarehouseId(), param.getSkuId(), param.getNum(), param.getUnit());
@@ -152,7 +152,7 @@ public class WarehouseController {
         return R.ok();
     }
 
-    @PostMapping("/deduct")
+    @PostMapping("/items/deduct")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
     public R deductProductInWarehouse(@RequestBody @Valid DeductStockParam param) {
         warehouseSkuService.deductSkuInWareHouse(param.getWarehouseId(), param.getSkuId(), param.getNum());

@@ -8,6 +8,7 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.IConsumeService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -32,13 +33,19 @@ public class ConsumeController {
     private IConsumeService consumeService;
 
     @GetMapping("/{consumeId}")
-    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR
+    )
     public R getConsumeById(@PathVariable String consumeId) {
         return R.ok().setData(consumeService.getById(Integer.parseInt(consumeId)));
     }
 
     @GetMapping("/all")
-    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR
+    )
     public R getConsumesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -61,12 +68,16 @@ public class ConsumeController {
     }
 
     @PostMapping("")
-    @RequiresPermissions({SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @RequiresPermissions(
+            value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
+            logical = Logical.OR
+    )
     public R createConsumeOrder(@RequestBody @Valid ConsumeCreateParam param) {
+        Integer userId = (Integer) SecurityUtils.getSubject().getPrincipal();
         consumeService.createOneConsumeOrder(
                 param.getSkuId(),
                 param.getWarehouseId(),
-                param.getConsumerId(),
+                userId,
                 param.getNum()
         );
 

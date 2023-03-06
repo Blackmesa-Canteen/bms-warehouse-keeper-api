@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +38,14 @@ public class SkuController {
     public R getSkuById(@PathVariable String skuId) {
         Sku sku = skuService.getById(Integer.parseInt(skuId));
         return R.ok().setData(sku);
+    }
+
+    @GetMapping("/query")
+    @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    public R querySkusBySpuId(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size, @RequestParam(value = "spuId") Integer spuId) {
+        List<Sku> skus = skuService.getSkusBySpuId(page, size, spuId);
+
+        return R.ok().setData(skus);
     }
 
     @GetMapping("/all")
@@ -69,6 +78,13 @@ public class SkuController {
             skuService.updateById(sku);
         }
 
+        return R.ok();
+    }
+
+    @DeleteMapping("/{skuId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    public R deleteSkuById(@PathVariable Integer skuId) {
+        skuService.removeById(skuId);
         return R.ok();
     }
 

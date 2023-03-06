@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISpuService extends IService<Spu> {
 
+    /**
+     * delete spu by id
+     * @param spuId int
+     */
+    void deleteSpuById(Integer spuId);
 }

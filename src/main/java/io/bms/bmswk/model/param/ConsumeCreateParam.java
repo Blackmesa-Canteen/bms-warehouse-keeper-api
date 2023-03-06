@@ -21,9 +21,6 @@ public class ConsumeCreateParam {
     @NotNull
     private Integer warehouseId;
 
-    @NotNull
-    private Integer consumerId;
-
     public Integer getSkuId() {
         return skuId;
     }
@@ -46,13 +43,5 @@ public class ConsumeCreateParam {
 
     public void setWarehouseId(Integer warehouseId) {
         this.warehouseId = warehouseId;
-    }
-
-    public Integer getConsumerId() {
-        return consumerId;
-    }
-
-    public void setConsumerId(Integer consumerId) {
-        this.consumerId = consumerId;
     }
 }

@@ -77,4 +77,11 @@ public class SpuController {
         return R.ok();
     }
 
+    @DeleteMapping("/{spuId}")
+    @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    public R deleteSpu(@PathVariable Integer spuId) {
+        spuService.deleteSpuById(spuId);
+        return R.ok();
+    }
+
 }
