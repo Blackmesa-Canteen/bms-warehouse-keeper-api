@@ -15,6 +15,8 @@ import io.bms.bmswk.service.ISkuService;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.service.IWarehouseService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,7 +30,7 @@ import java.util.List;
 
 /**
  * <p>
- *  controller
+ * controller
  * </p>
  *
  * @author 996worker
@@ -37,6 +39,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/purchase")
+@Api(tags = "Purchase/Stock-In operation APIs")
 public class PurchaseController {
 
     @Autowired
@@ -55,6 +58,7 @@ public class PurchaseController {
     @RequiresPermissions(
             value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR)
+    @ApiOperation("get purchase request by id")
     public R getPurchaseById(@PathVariable Integer purchaseId) {
         Purchase thePurchase = purchaseService.getById(purchaseId);
         PurchaseVO purchaseVO = BeanUtils.transformFrom(thePurchase, PurchaseVO.class);
@@ -80,6 +84,7 @@ public class PurchaseController {
             value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR
     )
+    @ApiOperation("query purchase request by page")
     public R getPurchasesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -104,6 +109,8 @@ public class PurchaseController {
     @RequiresPermissions(
             value = {SecurityConstant.INVENTORY_PURCHASE_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR)
+    @ApiOperation(value = "create new purchase/In-stock request",
+            notes = "The new request will pend for auditing")
     public R createOnePurchase(@RequestBody @Valid PurchaseCreateParam param) {
         Integer userId = (Integer) SecurityUtils.getSubject().getPrincipal();
         purchaseService.createOnePurchaseOrder(
@@ -119,6 +126,8 @@ public class PurchaseController {
 
     @GetMapping("/audit")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation(value = "audit a purchase request",
+            notes = "If pass, perform adding items in warehouse. Otherwise, mark the request as rejected.")
     public R auditOnePurchaseRequest(@RequestParam(value = "isConfirmed") Boolean isConfirmed,
                                      @RequestParam(value = "purchaseId") Integer purchaseId) {
         Integer keeperId = (Integer) SecurityUtils.getSubject().getPrincipal();
@@ -134,6 +143,7 @@ public class PurchaseController {
 
     /**
      * generate vo list
+     *
      * @param thePage page query result
      * @return list of vos
      */

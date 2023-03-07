@@ -19,6 +19,8 @@ import io.bms.bmswk.security.service.IPermissionService;
 import io.bms.bmswk.security.service.IRoleService;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,7 @@ import java.util.Map;
 @RestController
 @Validated
 @RequestMapping("/api/v1/user")
+@Api(tags = "User/Authentication controller")
 public class UserController {
 
     @Autowired
@@ -63,6 +66,7 @@ public class UserController {
      */
     @PostMapping("")
     @RequiresPermissions(SecurityConstant.USER_MANAGE_PERMISSION)
+    @ApiOperation(value = "Create a user", notes = "Not public. can only used by system admin.")
     public R create(@RequestBody @Valid UserRegisterParam param) {
         userService.registerUser(
                 param.getLoginId(),
@@ -81,6 +85,8 @@ public class UserController {
      * @return token string
      */
     @PostMapping("/login")
+    @ApiOperation(value = "login a user, get user info and auth token",
+            notes = "Get token and user info. Public access.")
     public R login(@RequestBody @Valid UserLoginParam param) {
         UserLoginDTO userLoginDTO = authService.loginUser(param.getLoginId(), param.getPassword());
         Role role = roleService.getById(userLoginDTO.getRoleId());
@@ -98,6 +104,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/refreshToken")
+    @ApiOperation(value = "Refresh token string",
+            notes = "Public access for refresh token to prevent unpredictable logout.")
     public R refresh(@RequestBody @Valid RefreshTokenParam param) {
         String token = authService.refreshTokenStr(param.getToken());
         RefreshTokenVo refreshTokenVo = new RefreshTokenVo();
@@ -110,6 +118,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation(value = "Get user by id")
     public R getUserById(@PathVariable String id) {
         // user vo ignores sensitive information: password
         User user = userService.getById(id);
@@ -125,6 +134,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @RequiresPermissions({SecurityConstant.USER_MANAGE_PERMISSION})
+    @ApiOperation(value = "Delete a user")
     public R deleteUserById(@PathVariable String id) {
         userService.removeById(id);
         return R.ok();
@@ -132,6 +142,7 @@ public class UserController {
 
     @GetMapping("/all")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation(value = "List all system users by page")
     public R getAllUserByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<User> thePage = userService.page(new Page<>(page, size));
         List<UserVO> userVOList = new LinkedList<>();

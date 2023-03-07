@@ -24,14 +24,19 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("login Id, used for login")
     private String loginId;
 
+    @ApiModelProperty("user display name")
     private String name;
 
+    @ApiModelProperty("Password cypher")
     private String password;
 
+    @ApiModelProperty("role ID for RBAC")
     private Integer roleId;
 
     @TableField(fill = FieldFill.INSERT)
@@ -43,6 +48,7 @@ public class User implements Serializable {
     @ApiModelProperty("status: 1 working, 2 on vacation, 3 resigned, 4 banned")
     private Byte status = CommonConstant.STAFF_WORKING;
 
+    @ApiModelProperty("Phone number string")
     private String phone;
 
     public Integer getId() {

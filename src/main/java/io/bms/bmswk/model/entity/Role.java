@@ -22,10 +22,13 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("Role display name")
     private String name;
 
+    @ApiModelProperty("comment string")
     private String comment;
 
     @TableField(fill = FieldFill.INSERT)

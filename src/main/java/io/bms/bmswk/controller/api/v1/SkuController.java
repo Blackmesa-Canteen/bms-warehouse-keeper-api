@@ -8,6 +8,8 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.ISkuService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/sku")
+@Api(tags = "Stock Keeping Unit APIs")
 public class SkuController {
 
     @Autowired
@@ -35,6 +38,7 @@ public class SkuController {
 
     @GetMapping("/{skuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("Get sku by id")
     public R getSkuById(@PathVariable String skuId) {
         Sku sku = skuService.getById(Integer.parseInt(skuId));
         return R.ok().setData(sku);
@@ -42,6 +46,7 @@ public class SkuController {
 
     @GetMapping("/query")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("Query skus under spu id by page")
     public R querySkusBySpuId(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size, @RequestParam(value = "spuId") Integer spuId) {
         List<Sku> skus = skuService.getSkusBySpuId(page, size, spuId);
 
@@ -50,6 +55,7 @@ public class SkuController {
 
     @GetMapping("/all")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("Find all skus by page")
     public R getAllSkuByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Sku> thePage = skuService.page(new Page<>(page, size));
 
@@ -58,6 +64,7 @@ public class SkuController {
 
     @PostMapping("")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation("Add one stock keeping product info in system")
     public R addOneSku(@RequestBody @Valid SkuCreateParam param) {
 
         Sku sku = BeanUtils.transformFrom(param, Sku.class);
@@ -70,6 +77,7 @@ public class SkuController {
 
     @PutMapping("/{skuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation("Edit existing sku")
     public R editOneSku(@RequestBody @Valid SkuUpdateParam param, @PathVariable String skuId) {
 
         synchronized (this) {
@@ -83,6 +91,8 @@ public class SkuController {
 
     @DeleteMapping("/{skuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation(value = "Find permissions by role name",
+            notes = "Delete one sku. Delete can be performed only if the sku is unused.")
     public R deleteSkuById(@PathVariable Integer skuId) {
         skuService.removeById(skuId);
         return R.ok();

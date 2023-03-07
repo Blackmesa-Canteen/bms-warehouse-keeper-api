@@ -22,10 +22,13 @@ public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty(value = "Permission standard string", example = "sys:user:manage")
     private String name;
 
+    @ApiModelProperty("comment info")
     private String comment;
 
     @TableField(fill = FieldFill.INSERT)

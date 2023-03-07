@@ -15,6 +15,8 @@ import io.bms.bmswk.service.ISkuService;
 import io.bms.bmswk.service.IUserService;
 import io.bms.bmswk.service.IWarehouseService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -37,6 +39,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/consume")
+@Api(tags = "Consume/Stock-Out operation APIs")
 public class ConsumeController {
 
     @Autowired
@@ -56,6 +59,7 @@ public class ConsumeController {
             value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR
     )
+    @ApiOperation("query consume request by id")
     public R getConsumeById(@PathVariable Integer consumeId) {
         Consume theConsume = consumeService.getById(consumeId);
         ConsumeVO consumeVO = BeanUtils.transformFrom(theConsume, ConsumeVO.class);
@@ -81,6 +85,7 @@ public class ConsumeController {
             value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR
     )
+    @ApiOperation("query consume requests by page")
     public R getConsumesByPage(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
@@ -110,6 +115,8 @@ public class ConsumeController {
             value = {SecurityConstant.INVENTORY_CONSUME_PERMISSION, SecurityConstant.INVENTORY_MANAGE_PERMISSION},
             logical = Logical.OR
     )
+    @ApiOperation(value = "create consume/out-stock request",
+            notes = "The consume request will wait/pend for audit by warehouse keeper.")
     public R createConsumeOrder(@RequestBody @Valid ConsumeCreateParam param) {
         Integer userId = (Integer) SecurityUtils.getSubject().getPrincipal();
         consumeService.createOneConsumeOrder(
@@ -124,6 +131,8 @@ public class ConsumeController {
 
     @GetMapping("/audit")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation(value = "audit consume/out-stock request",
+            notes = "If pass, perform the operation, deduct items in warehouse. If reject, register the request to rejected.")
     public R auditOneConsumeRequest(@RequestParam(value = "isConfirmed") Boolean isConfirmed,
                                        @RequestParam(value = "consumeId") Integer consumeId) {
 

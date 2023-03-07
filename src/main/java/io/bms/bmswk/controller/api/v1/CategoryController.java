@@ -14,6 +14,8 @@ import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.ICategoryParamService;
 import io.bms.bmswk.service.ICategoryService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/category")
+@Api(tags = "Category Related")
 public class CategoryController {
 
     @Autowired
@@ -44,12 +47,14 @@ public class CategoryController {
 
     @GetMapping("/{categoryId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("query category by id")
     public R getCategoryById(@PathVariable String categoryId) {
         return R.ok().setData(categoryService.getById(Integer.parseInt(categoryId)));
     }
 
     @DeleteMapping("/{categoryId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("delete category by id")
     public R deleteCategoryById(@PathVariable Integer categoryId) {
         categoryService.deleteCategoryById(categoryId);
 
@@ -58,6 +63,7 @@ public class CategoryController {
 
     @GetMapping("/all")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("get all category records by page")
     public R getCategoriesByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<Category> thePage = categoryService.page(new Page<>(page, size));
 
@@ -66,6 +72,8 @@ public class CategoryController {
 
     @PostMapping("")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation(value = "create a category",
+            notes = "create categories and corresponding category parameter records.")
     public R createCategory(@RequestBody @Valid CategoryCreateParam param) {
 
         // check duplicate

@@ -7,6 +7,8 @@ import io.bms.bmswk.model.support.R;
 import io.bms.bmswk.security.constant.SecurityConstant;
 import io.bms.bmswk.service.ICategoryParamService;
 import io.bms.bmswk.util.BeanUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +28,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/categoryParam")
+@Api(tags = "Category parameters/attributes related api")
 public class CategoryParamController {
 
     @Autowired
@@ -33,12 +36,14 @@ public class CategoryParamController {
 
     @GetMapping("/{categoryParamId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("query category param by id")
     public R getCategoryParamById(@PathVariable String categoryParamId) {
         return R.ok().setData(categoryParamService.getById(Integer.parseInt(categoryParamId)));
     }
 
     @GetMapping("/query")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("query category params by category id")
     public R getCategoryParamByCategoryId(@RequestParam(value = "categoryId") Integer categoryId) {
         List<CategoryParam> res = categoryParamService.getAllParamsByCategoryId(categoryId);
         return R.ok().setData(res);
@@ -46,6 +51,7 @@ public class CategoryParamController {
 
     @DeleteMapping("/{categoryParamId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("delete category param by id")
     public R deleteCategoryParam(@PathVariable String categoryParamId) {
         categoryParamService.removeById(Integer.parseInt(categoryParamId));
         return R.ok();
@@ -53,6 +59,7 @@ public class CategoryParamController {
 
     @GetMapping("/all")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})
+    @ApiOperation("get all params by page")
     public R getCategoryParamsByPage(@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
         Page<CategoryParam> thePage = categoryParamService.page(new Page<>(page, size));
 
@@ -61,6 +68,7 @@ public class CategoryParamController {
 
     @PostMapping("")
     @RequiresPermissions({SecurityConstant.INVENTORY_MANAGE_PERMISSION})
+    @ApiOperation("create one parameter config for category")
     public R createCategoryParam(@RequestBody @Valid CategoryParamCreateParam param) {
         CategoryParam categoryParam = BeanUtils.transformFrom(param, CategoryParam.class);
 

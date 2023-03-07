@@ -16,16 +16,19 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_category_param")
-@ApiModel(value = "CategoryParam object", description = "parameter table for item categories")
+@ApiModel(value = "CategoryParam object", description = "parameters/attributes for product categories")
 public class CategoryParam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("Attached category key id")
     private Integer categoryId;
 
+    @ApiModelProperty("category param display name")
     private String name;
 
     @ApiModelProperty("is numeric parameter")

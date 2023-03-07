@@ -16,23 +16,28 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_consume")
-@ApiModel(value = "Consume object", description = "")
+@ApiModel(value = "Consume object", description = "Consume/Out-Stock requests")
 public class Consume implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("target sku id")
     private Integer skuId;
 
+    @ApiModelProperty("number of out-stock sku")
     private Integer num;
 
+    @ApiModelProperty("source warehouse id")
     private Integer warehouseId;
 
+    @ApiModelProperty("user id who created this request")
     private Integer consumerId;
 
-    @ApiModelProperty("1 pending for audit; 2 finished")
+    @ApiModelProperty("1 pending for audit; 2 finished; 3 rejected")
     private Byte status;
 
     @TableField(fill = FieldFill.INSERT)

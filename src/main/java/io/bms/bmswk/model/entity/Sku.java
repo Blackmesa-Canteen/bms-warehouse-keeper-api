@@ -17,21 +17,22 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_sku")
-@ApiModel(value = "Sku object", description = "item table")
+@ApiModel(value = "Standard Stock Keeping Unit", description = "item table")
 public class Sku implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
-    @ApiModelProperty("production ID")
+    @ApiModelProperty("production spu ID")
     private Integer spuId;
 
     @ApiModelProperty("name")
     private String name;
 
-    @ApiModelProperty("价格")
+    @ApiModelProperty("price for one sku")
     private BigDecimal price;
 
     @ApiModelProperty("production category param")

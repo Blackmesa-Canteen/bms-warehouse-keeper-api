@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_spu")
-@ApiModel(value = "Spu object", description = "product table")
+@ApiModel(value = "Standard Product Unit", description = "product table")
 public class Spu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Spu implements Serializable {
     @ApiModelProperty("is on sale for consumer to pick up")
     private Boolean saleable;
 
-    @ApiModelProperty("is valid")
+    @ApiModelProperty("logic delete value")
     @TableField(fill = FieldFill.INSERT)
     @TableLogic
     private Boolean valid;

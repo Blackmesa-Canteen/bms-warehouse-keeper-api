@@ -16,14 +16,16 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_category")
-@ApiModel(value = "Category object", description = "item category table")
+@ApiModel(value = "Category object", description = "product category")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("category display name")
     private String name;
 
     @TableField(fill = FieldFill.INSERT)

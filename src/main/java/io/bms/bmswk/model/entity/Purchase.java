@@ -17,23 +17,28 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2023-02-23
  */
 @TableName("t_purchase")
-@ApiModel(value = "Purchase object", description = "")
+@ApiModel(value = "Purchase object", description = "Purchase/In-Stock request")
 public class Purchase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("InStock sku id")
     private Integer skuId;
 
+    @ApiModelProperty("instock number")
     private Integer num;
 
+    @ApiModelProperty("Target warehouse")
     private Integer warehouseId;
 
+    @ApiModelProperty("user id who want to in stock the sku")
     private Integer purchaserId;
 
-    @ApiModelProperty("1 pending for audit; 2 finished")
+    @ApiModelProperty("1 pending for audit; 2 finished; 3 rejected")
     private Byte status;
 
     @TableField(fill = FieldFill.INSERT)
@@ -42,6 +47,7 @@ public class Purchase implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
+    @ApiModelProperty("Price to purchase the item for the warehouse")
     private BigDecimal price;
 
     @ApiModelProperty("audit warehouse keeper id")

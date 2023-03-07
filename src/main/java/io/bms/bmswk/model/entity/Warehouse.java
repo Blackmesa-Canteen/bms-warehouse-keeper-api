@@ -22,10 +22,13 @@ public class Warehouse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("address")
     private String address;
 
+    @ApiModelProperty("located city id")
     private Integer cityId;
 
     @TableField(fill = FieldFill.INSERT)
@@ -34,10 +37,12 @@ public class Warehouse implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime dtUpdated;
 
+    @ApiModelProperty("display name")
     private String name;
 
     @TableField(fill = FieldFill.INSERT)
     @TableLogic
+    @ApiModelProperty("Logic delete value")
     private Boolean valid;
 
     public Integer getId() {

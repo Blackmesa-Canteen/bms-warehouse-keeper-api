@@ -1,3 +1,5 @@
+server:
+  port: ${SYS_PORT}
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -5,6 +7,22 @@ spring:
     username: ${MYSQL_DB_USERNAME}
     password: ${MYSQL_DB_PASSWORD}
     type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+swagger:
+  enabled: true
+  base-package: 'io.bms.bmswk'
+  title: 'Black Mesa Warehouse Keeper API system'
+  description: 'API Documentation for the warehouse inventory management system'
+  version: '1.0'
+  contact:
+    name: '996worker'
+    url: 'https://www.996workers.icu'
+  authorization:
+    key-name: 'Authorization'
+    name: 'Bearer JWT Token (e.g. Bearer *****)'
 
 logging:
   level:

@@ -6,12 +6,14 @@ This guide instruct how to build & run the project.
 
 ## Environment Variables
 Required env vars are listed below with example values
+- SYS_PORT=8080
 - JWT_KEY={{some secret}}
+- JWT_ISSUER=www.996workers.icu
+- JWT_VALIDITY_MS=600000
 - MYSQL_DB_HOSTNAME=localhost
 - MYSQL_DB_PASSWORD={{some password}}
 - MYSQL_DB_PORT=3306
 - MYSQL_DB_USERNAME=root
-- JWT_ISSUER=www.996workers.icu
 
 ## Docker (recommended)
 - Docker compose is needed. Two containers in runtime: bms-wk-api-service and bms-wk-api-mysql-service
@@ -22,7 +24,9 @@ Required env vars are listed below with example values
 
 ## JRE
 - Java 11: Check the `.jar` file in release page.
-- MySQL 8: Dumped sql file is in `/migration`, use the latest one.
+- MySQL 8: Dumped sql file is in `/migration`, use the latest one to set up database.
+- Use Maven to install dependencies.
+- Executable: `src/main/java/io/bms/bmswk/BMSWKApiApplication.java`.
 
 For further reference, please consider the following sections:
 

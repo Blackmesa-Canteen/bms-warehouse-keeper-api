@@ -22,8 +22,10 @@ public class City implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Primary key id")
     private Integer id;
 
+    @ApiModelProperty("city display name")
     private String name;
 
     @TableField(fill = FieldFill.INSERT)
