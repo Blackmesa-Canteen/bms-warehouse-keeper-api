@@ -29,8 +29,11 @@ import javax.validation.Valid;
 @Api(tags = "City related apis")
 public class CityController {
 
-    @Autowired
-    private ICityService cityService;
+    private final ICityService cityService;
+
+    public CityController(ICityService cityService) {
+        this.cityService = cityService;
+    }
 
     @GetMapping("/{id}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})

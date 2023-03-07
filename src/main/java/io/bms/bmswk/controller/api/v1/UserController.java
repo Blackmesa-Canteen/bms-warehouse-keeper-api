@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  controller
+ * controller
  * </p>
  *
  * @author 996worker
@@ -47,20 +47,24 @@ import java.util.Map;
 @Api(tags = "User/Authentication controller")
 public class UserController {
 
-    @Autowired
-    IUserService userService;
+    private final IUserService userService;
 
-    @Autowired
-    IAuthService authService;
+    private final IAuthService authService;
 
-    @Autowired
-    IRoleService roleService;
+    private final IRoleService roleService;
 
-    @Autowired
-    IPermissionService permissionService;
+    private final IPermissionService permissionService;
+
+    public UserController(IUserService userService, IAuthService authService, IRoleService roleService, IPermissionService permissionService) {
+        this.userService = userService;
+        this.authService = authService;
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+    }
 
     /**
      * register user
+     *
      * @param param register request body
      * @return response
      */
@@ -81,6 +85,7 @@ public class UserController {
 
     /**
      * login and get auth token
+     *
      * @param param UserLoginParam
      * @return token string
      */
@@ -100,6 +105,7 @@ public class UserController {
 
     /**
      * refresh auth token
+     *
      * @param param
      * @return
      */

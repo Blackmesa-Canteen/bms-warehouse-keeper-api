@@ -31,8 +31,11 @@ import java.util.List;
 @Api(tags = "Category parameters/attributes related api")
 public class CategoryParamController {
 
-    @Autowired
-    private ICategoryParamService categoryParamService;
+    private final ICategoryParamService categoryParamService;
+
+    public CategoryParamController(ICategoryParamService categoryParamService) {
+        this.categoryParamService = categoryParamService;
+    }
 
     @GetMapping("/{categoryParamId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})

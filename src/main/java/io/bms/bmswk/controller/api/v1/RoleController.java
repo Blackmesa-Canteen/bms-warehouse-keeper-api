@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Role APIs")
 public class RoleController {
 
-    @Autowired
-    private IRoleService roleService;
+    private final IRoleService roleService;
+
+    public RoleController(IRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping("/{roleId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION, SecurityConstant.USER_MANAGE_PERMISSION})

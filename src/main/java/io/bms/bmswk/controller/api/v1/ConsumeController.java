@@ -42,17 +42,20 @@ import java.util.List;
 @Api(tags = "Consume/Stock-Out operation APIs")
 public class ConsumeController {
 
-    @Autowired
-    private IConsumeService consumeService;
+    private final IConsumeService consumeService;
 
-    @Autowired
-    private ISkuService skuService;
+    private final ISkuService skuService;
 
-    @Autowired
-    private IWarehouseService warehouseService;
+    private final IWarehouseService warehouseService;
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
+
+    public ConsumeController(IConsumeService consumeService, ISkuService skuService, IWarehouseService warehouseService, IUserService userService) {
+        this.consumeService = consumeService;
+        this.skuService = skuService;
+        this.warehouseService = warehouseService;
+        this.userService = userService;
+    }
 
     @GetMapping("/{consumeId}")
     @RequiresPermissions(

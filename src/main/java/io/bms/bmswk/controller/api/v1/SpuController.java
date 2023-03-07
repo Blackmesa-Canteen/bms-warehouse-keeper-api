@@ -33,8 +33,11 @@ import javax.validation.Valid;
 @Api(tags = "Standard Product Unit API")
 public class SpuController {
 
-    @Autowired
-    private ISpuService spuService;
+    private final ISpuService spuService;
+
+    public SpuController(ISpuService spuService) {
+        this.spuService = spuService;
+    }
 
     @GetMapping("/{spuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})

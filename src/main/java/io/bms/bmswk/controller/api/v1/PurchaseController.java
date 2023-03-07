@@ -42,17 +42,20 @@ import java.util.List;
 @Api(tags = "Purchase/Stock-In operation APIs")
 public class PurchaseController {
 
-    @Autowired
-    private IPurchaseService purchaseService;
+    private final IPurchaseService purchaseService;
 
-    @Autowired
-    private ISkuService skuService;
+    private final ISkuService skuService;
 
-    @Autowired
-    private IWarehouseService warehouseService;
+    private final IWarehouseService warehouseService;
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
+
+    public PurchaseController(IPurchaseService purchaseService, ISkuService skuService, IWarehouseService warehouseService, IUserService userService) {
+        this.purchaseService = purchaseService;
+        this.skuService = skuService;
+        this.warehouseService = warehouseService;
+        this.userService = userService;
+    }
 
     @GetMapping("/{purchaseId}")
     @RequiresPermissions(

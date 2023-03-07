@@ -33,8 +33,11 @@ import java.util.List;
 @Api(tags = "Stock Keeping Unit APIs")
 public class SkuController {
 
-    @Autowired
-    private ISkuService skuService;
+    private final ISkuService skuService;
+
+    public SkuController(ISkuService skuService) {
+        this.skuService = skuService;
+    }
 
     @GetMapping("/{skuId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})

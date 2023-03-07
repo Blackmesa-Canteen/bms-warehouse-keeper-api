@@ -26,8 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Permission related APIs")
 public class PermissionController {
 
-    @Autowired
-    private IPermissionService permissionService;
+    private final IPermissionService permissionService;
+
+    public PermissionController(IPermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
 
     @GetMapping("/{permissionId}")
     @RequiresPermissions({SecurityConstant.INVENTORY_SEE_PERMISSION})

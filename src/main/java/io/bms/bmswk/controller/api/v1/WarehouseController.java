@@ -42,20 +42,18 @@ import java.util.List;
 @Api(tags = "Warehouse management APIs")
 public class WarehouseController {
 
-    @Autowired
-    private IWarehouseService warehouseService;
+    private final IWarehouseService warehouseService;
 
-    @Autowired
+    final
     ICityService cityService;
 
-    @Autowired
-    private IWarehouseSkuService warehouseSkuService;
+    private final IWarehouseSkuService warehouseSkuService;
 
-    @Autowired
-    private ISkuService skuService;
-
-    @Autowired
-    private ISpuService spuService;
+    public WarehouseController(IWarehouseService warehouseService, ICityService cityService, IWarehouseSkuService warehouseSkuService, ISkuService skuService, ISpuService spuService) {
+        this.warehouseService = warehouseService;
+        this.cityService = cityService;
+        this.warehouseSkuService = warehouseSkuService;
+    }
 
     /**
      * create new warehouse
