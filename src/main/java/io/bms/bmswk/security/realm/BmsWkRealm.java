@@ -1,5 +1,6 @@
 package io.bms.bmswk.security.realm;
 
+import io.bms.bmswk.constant.CommonConstant;
 import io.bms.bmswk.exception.AuthException;
 import io.bms.bmswk.model.dto.PermissionDTO;
 import io.bms.bmswk.model.entity.Role;
@@ -29,7 +30,7 @@ import java.util.Set;
 
 /**
  * <p>
- *  shiro auth realm
+ * shiro auth realm
  * </p>
  *
  * @author 996Worker
@@ -61,11 +62,23 @@ public class BmsWkRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String tokenStr= (String) authenticationToken.getCredentials();
+        String tokenStr = (String) authenticationToken.getCredentials();
         LOGGER.debug(String.format("doGetAuthenticationInfo: credentials: %s", tokenStr));
         // validate auth token
         try {
             AuthToken authToken = tokenHelper.validateAndDecodeTokenStr(tokenStr);
+
+            // check user status
+            User userInfo = userService.getById(authToken.getUserPk());
+            if (userInfo == null) {
+                throw new AuthException("user not exist");
+            }
+
+            if (userInfo.getStatus().equals(CommonConstant.STAFF_BANNED) ||
+                    userInfo.getStatus().equals(CommonConstant.STAFF_RESIGNED)) {
+                throw new AuthException("user is banned or resigned.");
+            }
+
             return new SimpleAuthenticationInfo(authToken.getUserPk(), tokenStr, SecurityConstant.REALM_NAME_BMS_WK);
 
         } catch (AuthException e) {
