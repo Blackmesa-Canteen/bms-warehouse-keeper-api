@@ -140,16 +140,5 @@ public class JwtTokenHelper implements ITokenHelper {
     @Deprecated
     public boolean validateTokenStr(String token) throws AuthException {
         throw new NotImplementedException();
-//        try {
-//            Algorithm algorithm = Algorithm.HMAC256(SecurityConstant.JWT_KEY);
-//            JWTVerifier verifier = JWT.require(algorithm)
-//                    .build();
-//            DecodedJWT jwt = verifier.verify(token);
-//            return true;
-//        } catch (JWTVerificationException e) {
-//            return false;
-//        } catch (Exception e) {
-//            throw new AuthException("validate Token error");
-//        }
     }
 }

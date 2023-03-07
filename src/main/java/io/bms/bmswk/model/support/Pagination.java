@@ -13,6 +13,7 @@ import java.util.List;
  * @author 996Worker
  * @since 2023-02-23 10:52
  */
+@Deprecated
 public class Pagination implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -9,9 +9,10 @@ import java.util.Collections;
 /**
  * @author 996worker
  */
+@Deprecated
 public class MybatisPlusCodeGenerator {
 
-    public static void main(String[] args) {
+    public static void main0(String[] args) {
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/bms_warehouse_keeper", "root", "123456")
                 .globalConfig(builder -> {
                     builder.author("996worker")

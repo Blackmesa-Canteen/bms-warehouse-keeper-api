@@ -17,6 +17,10 @@ import java.time.LocalDateTime;
 @Component
 public class EntityMetaHandler implements MetaObjectHandler {
 
+    /**
+     * auto fill date and field for logical delete
+     * @param metaObject 元对象
+     */
     @Override
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "dtCreated", LocalDateTime.class, LocalDateTime.now());
