@@ -14,6 +14,7 @@ Required env vars are listed below with example values
 - MYSQL_DB_PASSWORD={{some password}}
 - MYSQL_DB_PORT=3306
 - MYSQL_DB_USERNAME=root
+- MYSQL_DB_SCHEMA=bms_warehouse_keeper
 
 ## Docker (recommended)
 - Docker compose is needed. Two containers in runtime: bms-wk-api-service and bms-wk-api-mysql-service
