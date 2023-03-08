@@ -26,19 +26,16 @@ See `/.env.example` for more information.
 
 ## Docker (recommended)
 ### Notes
-- Docker compose is needed. Two containers in runtime: bms-wk-api-service and bms-wk-api-mysql-service
+- Docker compose plugin is required. See [Docker Docs: Install the Compose Plugin](https://docs.docker.com/compose/install/).
 - `/Dockerfile` and `/docker-compose` is located in the project root dir;
-
 
 ### Build step
 Steps to build docker-compose are shown below:
-1. Create `/.env` file, based on `/.env,example` to hold environment vars;
+1. Create `.env` file, based on `.env,example` to hold environment vars;
 2. Run docker-compose with `docker-compose up`. Services can be run on the background by `docker-compose up -d`;
 3. In host machine, access system with port var `SYS_DOCKER_HOST_PORT`, access database with port var `MYSQL_DB_DOCKER_HOST_PORT`; 
 4. Stop the system: `docker-compose down`;
 5. Stop and remove all containers, images: `docker-compose down --rmi all`.
-
-**Guides:**
 
 ## JRE
 - Java 11: Get the `.jar` file in release page.
@@ -53,5 +50,3 @@ For further reference, please consider the following sections:
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.8/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.8/maven-plugin/reference/html/#build-image)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.8/reference/htmlsingle/#web)
-
-# API requests
