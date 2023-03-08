@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  mysqldb:
+  mysqldb-bms-warehouse-keeper:
     image: mysql:8.0.32
     restart: unless-stopped
     env_file: ./.env
@@ -11,9 +11,9 @@ services:
       - $MYSQL_DB_DOCKER_HOST_PORT:$MYSQL_DB_PORT
     volumes:
       - db:/var/lib/mysql
-  app:
+  bms-warehouse-keeper-api-app:
     depends_on:
-      - mysqldb
+      - mysqldb-bms-warehouse-keeper
     build: .
     restart: on-failure
     env_file: ./.env
