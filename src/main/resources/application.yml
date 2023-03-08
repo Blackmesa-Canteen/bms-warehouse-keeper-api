@@ -1,12 +1,23 @@
 server:
   port: ${SYS_PORT}
+db:
+  name: bms_warehouse_keeper
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_DB_HOSTNAME}:${MYSQL_DB_PORT}/bms_warehouse_keeper
+    url: jdbc:mysql://${MYSQL_DB_HOSTNAME}:${MYSQL_DB_PORT}/${db.name}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: ${MYSQL_DB_USERNAME}
     password: ${MYSQL_DB_PASSWORD}
     type: com.alibaba.druid.pool.DruidDataSource
+  sql:
+    init:
+      username: ${MYSQL_DB_USERNAME}
+      password: ${MYSQL_DB_PASSWORD}
+      mode: always
+      schema-locations: classpath*:schema/schema.sql
+      data-locations: classpath*:data/data.sql
+
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
