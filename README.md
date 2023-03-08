@@ -37,13 +37,12 @@ Steps to build docker-compose are shown below:
 4. Stop the system: `docker-compose down`;
 5. Stop and remove all containers, images: `docker-compose down --rmi all`.
 
-## JRE
+## JRE (Not recommended)
 - Java 11: Get the `.jar` file in release page.
-- MySQL 8.
-- Use Maven to install dependencies.
-- Set env variables for JVM.
-- Executable: `src/main/java/io/bms/bmswk/BMSWKApiApplication.java`.
+- Install and run MySQL 8.
+- Set env variables for JVM, Execute the jar.
 
+# Extras
 For further reference, please consider the following sections:
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
