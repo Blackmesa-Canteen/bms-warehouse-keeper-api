@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:8.0.32
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_DB_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DB_SCHEMA
+    ports:
+      - $MYSQL_DB_DOCKER_HOST_PORT:$MYSQL_DB_PORT
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./bms-warehouse-keeper-api
+    restart: on-failure
+    env_file: ./.env
+    ports:
+      - $SYS_DOCKER_HOST_PORT:$SYS_PORT
+    environment:
+      SYS_PORT: $SYS_PORT
+      JWT_ISSUER: $JWT_ISSUER
+      JWT_KEY: $JWT_KEY
+      MYSQL_DB_SCHEMA: $MYSQL_DB_SCHEMA
+      MYSQL_DB_HOSTNAME: mysqldb
+      MYSQL_DB_PASSWORD: $MYSQL_DB_PASSWORD
+      MYSQL_DB_PORT: $MYSQL_DB_PORT
+      MYSQL_DB_USERNAME: $MYSQL_DB_USERNAME
+
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
