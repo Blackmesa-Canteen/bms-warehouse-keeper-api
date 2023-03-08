@@ -10,7 +10,7 @@ Postman Scripts in `/doc`.
 
 ## Environment Variables
 Required env vars are listed below with example values.
-- SYS_PORT=8080
+- APP_PORT=8080
 - JWT_KEY={{some secret}}
 - JWT_ISSUER=www.996workers.icu
 - JWT_VALIDITY_MS=600000

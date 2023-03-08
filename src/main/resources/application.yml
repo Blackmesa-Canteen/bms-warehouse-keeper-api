@@ -1,9 +1,9 @@
 server:
-  port: ${SYS_PORT}
+  port: ${APP_PORT}
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_DB_HOSTNAME}:${MYSQL_DB_PORT}/${MYSQL_DB_SCHEMA}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://${MYSQL_DB_HOSTNAME}:${MYSQL_DB_PORT}/${MYSQL_DB_SCHEMA}?allowPublicKeyRetrieval=true&useSSL=false
     username: ${MYSQL_DB_USERNAME}
     password: ${MYSQL_DB_PASSWORD}
     type: com.alibaba.druid.pool.DruidDataSource

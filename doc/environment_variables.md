@@ -1,6 +1,6 @@
 # Environment variables and example values
 
-- SYS_PORT=8080
+- APP_PORT=8080
 - JWT_KEY={{some secret}}
 - MYSQL_DB_HOSTNAME=localhost
 - MYSQL_DB_PASSWORD={{some world}}
