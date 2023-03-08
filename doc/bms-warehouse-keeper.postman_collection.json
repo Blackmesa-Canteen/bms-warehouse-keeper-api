@@ -1,0 +1,1376 @@
+{
+	"info": {
+		"_postman_id": "63c85917-0be1-422b-bff3-906f3b707558",
+		"name": "bms-warehouse-keeper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15493898"
+	},
+	"item": [
+		{
+			"name": "auth/user",
+			"item": [
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loginId\": \"warehousekeeper@996workers.icu\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/user/login",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "regiter user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzI2NjIsInVzZXJQayI6MywiaWF0IjoxNjc4MDY5OTYyfQ.tJtAgLAceDSvsTxvQjfVsbDhxboQ7f7s2flWLnmJiSM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loginId\": \"warehousekeeper2@996workers.icu\",\n    \"name\": \"warehouse keeper man 2\",\n    \"password\": \"123456\",\n    \"roleId\": 4,\n    \"phone\": \"1234555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/user",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzI2NjIsInVzZXJQayI6MywiaWF0IjoxNjc4MDY5OTYyfQ.tJtAgLAceDSvsTxvQjfVsbDhxboQ7f7s2flWLnmJiSM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/user/2",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzI2NjIsInVzZXJQayI6MywiaWF0IjoxNjc4MDY5OTYyfQ.tJtAgLAceDSvsTxvQjfVsbDhxboQ7f7s2flWLnmJiSM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/user/refreshToken",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzI2NjIsInVzZXJQayI6MywiaWF0IjoxNjc4MDY5OTYyfQ.tJtAgLAceDSvsTxvQjfVsbDhxboQ7f7s2flWLnmJiSM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/user/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzMwNDcsInVzZXJQayI6MywiaWF0IjoxNjc4MDcwMzQ3fQ.LxFzfa5QxVJp3fd-1hivksqle1CjD3AP4I2Hweivf3k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/user/7",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"user",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get role by role id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzY3NTksInVzZXJQayI6MywiaWF0IjoxNjc4MDc0MDU5fQ.LaL6L1N2eF68EqY21UnwvGqgdljsOR3JkFBF5XbjU_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/role/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permission by permission id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzY3NTksInVzZXJQayI6MywiaWF0IjoxNjc4MDc0MDU5fQ.LaL6L1N2eF68EqY21UnwvGqgdljsOR3JkFBF5XbjU_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/permission/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"permission",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permission by role name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoiYWRtaW5AOTk2d29ya2Vycy5pY3UiLCJyb2xlSWQiOjEsImlzcyI6Ind3dy45OTZ3b3JrZXJzLmljdSIsInVzZXJOYW1lIjoiYWRtaW4iLCJleHAiOjE2NzgwNzY3NTksInVzZXJQayI6MywiaWF0IjoxNjc4MDc0MDU5fQ.LaL6L1N2eF68EqY21UnwvGqgdljsOR3JkFBF5XbjU_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/permission/role_name/admin",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"permission",
+								"role_name",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "city",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/city/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"city",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/city/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"city",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New York\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/city",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"city"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDczNzY2LCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3MTA2Nn0.gyMod7p70_PzPAG_K5ZB1qSj8qzpHKiaf1tOexT1VN0",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/category/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"category",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/category/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fruit\",\n    \"params\": [\n        {\n            \"name\": \"weight\",\n            \"isNumeric\": true,\n            \"unit\": \"kg\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/category",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgwNjYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3Nzk2MH0.ybsVT5KkpyBv-xFqlzD65HdVc9RGzZ4RBOd6inPz8AQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "categoryParameter",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/categoryParam/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"categoryParam",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/categoryParam/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"categoryParam",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByCategoryId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/categoryParam/query?categoryId=9",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"categoryParam",
+								"query"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgwNjYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3Nzk2MH0.ybsVT5KkpyBv-xFqlzD65HdVc9RGzZ4RBOd6inPz8AQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "spu",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/spu/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"spu",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/spu/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"spu",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pear\",\n    \"categoryId\": 9,\n    \"saleable\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/spu",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"spu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/spu/4",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"spu",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pear\",\n    \"categoryId\": 9,\n    \"saleable\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/spu/4",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"spu",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgwNjYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3Nzk2MH0.ybsVT5KkpyBv-xFqlzD65HdVc9RGzZ4RBOd6inPz8AQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "sku",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/sku/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"sku",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/sku/6",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"sku",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pear Big\",\n    \"spuId\": 4,\n    \"price\": 99,\n    \"param\": \"{\\\"weight\\\": 8}\",\n    \"saleable\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/sku",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"sku"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBySpuId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/sku/query?spuId=1&page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"sku",
+								"query"
+							],
+							"query": [
+								{
+									"key": "spuId",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/sku/6",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"sku",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgwNjYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3Nzk2MH0.ybsVT5KkpyBv-xFqlzD65HdVc9RGzZ4RBOd6inPz8AQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "warehouse",
+			"item": [
+				{
+					"name": "getQueryInventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/warehouse/items/query?warehouseId=2&page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"warehouse",
+								"items",
+								"query"
+							],
+							"query": [
+								{
+									"key": "warehouseId",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/warehouse/all?page=1&size=5",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"warehouse",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/warehouse/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"warehouse",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Big house!\",\n    \"address\": \"World of wonder\",\n    \"cityId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/warehouse",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"warehouse"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgwNjYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA3Nzk2MH0.ybsVT5KkpyBv-xFqlzD65HdVc9RGzZ4RBOd6inPz8AQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "purchase",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/purchase/all?page=1&size=5&status=1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"purchase",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/purchase/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"purchase",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skuId\": 1,\n    \"num\": 22,\n    \"warehouseId\": 2,\n    \"price\": 2.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/purchase",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Audit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/purchase/audit?isConfirmed=true&purchaseId=2",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"purchase",
+								"audit"
+							],
+							"query": [
+								{
+									"key": "isConfirmed",
+									"value": "true"
+								},
+								{
+									"key": "purchaseId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MTQ5MzYwLCJ1c2VyUGsiOjYsImlhdCI6MTY3ODE0NjY2MH0.2IAMfQSs0aNfl8aI_Fru8P6lMwFot4Vc41c5RNCLNjk",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "consume",
+			"item": [
+				{
+					"name": "getByPage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/consume/all?page=1&size=5&status=1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"consume",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/consume/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"consume",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skuId\": 1,\n    \"num\": 22,\n    \"warehouseId\": 2,\n    \"price\": 2.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/consume",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"consume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Audit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/consume/audit?isConfirmed=true&consumeId=1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"consume",
+								"audit"
+							],
+							"query": [
+								{
+									"key": "isConfirmed",
+									"value": "true"
+								},
+								{
+									"key": "consumeId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbklkIjoid2FyZWhvdXNla2VlcGVyQDk5NndvcmtlcnMuaWN1Iiwicm9sZUlkIjo0LCJpc3MiOiJ3d3cuOTk2d29ya2Vycy5pY3UiLCJ1c2VyTmFtZSI6IndhcmVob3VzZSBrZWVwZXIgbWFuIiwiZXhwIjoxNjc4MDgzMTg1LCJ1c2VyUGsiOjYsImlhdCI6MTY3ODA4MDQ4NX0.2UDqOlLuckZK47-LpTVP-qHDDV6BLeq8ct6qcC43rhU",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "base",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE",
+			"value": "http://localhost:8090/api/v1",
+			"type": "string"
+		}
+	]
+}
